@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://i3xe63njuc87"]
+
+[ext_resource type="Script" uid="uid://bocnxvnsmgohw" path="res://test.gd" id="1_6uqi0"]
+[ext_resource type="Texture2D" uid="uid://f4e0x2dt70fd" path="res://InputBuffer/lightning_in_clockwise_arrow.svg" id="1_8uh7m"]
+[ext_resource type="Script" uid="uid://cfdwhqfwsap3" path="res://SquashAnimation/SquashAnimation.gd" id="2_8uh7m"]
+[ext_resource type="Script" uid="uid://bdn5jgrpa2e5p" path="res://DragAndDrop/DragAndDrop.gd" id="4_ppyta"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
+radius = 15.132746
+
+[node name="Node2D" type="Node2D" unique_id=1454336553]
+script = ExtResource("1_6uqi0")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=624203742]
+zoom = Vector2(4, 4)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1352450315]
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2087140161]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -10.0
+offset_right = -10.0
+offset_bottom = 36.0
+grow_horizontal = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=48967985]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=2055124418]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1749164616]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HSlider2" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=938746154]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label3" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1665995668]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HSlider3" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=1381606802]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label4" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1614856881]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HSlider4" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=690224356]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=287663653]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -26.5
+offset_top = -33.0
+offset_right = 26.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2102983500]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=859130916]
+shape = SubResource("CircleShape2D_5p6vy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=411484405]
+texture_filter = 3
+rotation = 1.0471976
+scale = Vector2(0.9942427, 1.008426)
+texture = ExtResource("1_8uh7m")
+
+[node name="SquashAnimation" type="Node" parent="Area2D/Sprite2D" unique_id=1937918173 node_paths=PackedStringArray("user")]
+script = ExtResource("2_8uh7m")
+user = NodePath("..")
+metadata/_custom_type_script = "uid://cfdwhqfwsap3"
+
+[node name="Area2D2" type="Area2D" parent="." unique_id=1895157712 groups=["drop_zones"]]
+position = Vector2(-85, -30)
+
+[node name="DragAndDrop" type="Node" parent="Area2D2" unique_id=298874472]
+script = ExtResource("4_ppyta")
+drop_zone_group = "drop_zones"
+metadata/_custom_type_script = "uid://bdn5jgrpa2e5p"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=451398358]
+shape = SubResource("CircleShape2D_5p6vy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D2" unique_id=1114188117]
+texture_filter = 3
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1_8uh7m")
+
+[node name="SquashAnimation" type="Node" parent="Area2D2/Sprite2D" unique_id=1467934007 node_paths=PackedStringArray("user")]
+script = ExtResource("2_8uh7m")
+user = NodePath("..")
+metadata/_custom_type_script = "uid://cfdwhqfwsap3"
+
+[node name="Area2D3" type="Area2D" parent="." unique_id=1073898911 groups=["drop_zones"]]
+position = Vector2(97, -41)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3" unique_id=1897027038]
+shape = SubResource("CircleShape2D_5p6vy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D3" unique_id=146428508]
+texture_filter = 3
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("1_8uh7m")
+
+[node name="SquashAnimation" type="Node" parent="Area2D3/Sprite2D" unique_id=1104780189 node_paths=PackedStringArray("user")]
+script = ExtResource("2_8uh7m")
+user = NodePath("..")
+metadata/_custom_type_script = "uid://cfdwhqfwsap3"
+
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider2" to="." method="_on_h_slider_2_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider3" to="." method="_on_h_slider_3_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider4" to="." method="_on_h_slider_4_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
