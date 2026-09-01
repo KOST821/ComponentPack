@@ -3,7 +3,7 @@
 - <img width="16" height="16" alt="gravity" src="/Gravity/gravity.svg"/> [Gravity](#gravity)
 - <img width="16" height="16" alt="drag_and_drop" src="/DragAndDrop/chess_pawn.svg"/> [Drag and Drop](#drag-and-drop)
 - <img width="16" height="16" alt="health2d" src="/Health/2D/heart.svg"/><img width="16" height="16" alt="health3d" src="/Health/3D/heart.svg"/> [Health](#health)
-- <img width="16" height="16" alt="scene_spawner" src="/SceneSpawner/SceneSpawner.gd"/> [SceneSpawner](#scenespawner)
+- <img width="16" height="16" alt="scene_spawner" src="/SceneSpawner/file_plus.svg"/> [SceneSpawner](#scenespawner)
 - [Glossary](#glossary)
 
 <br> <br>
@@ -270,7 +270,7 @@ Now to **take damage** you just call: <code> health.take_damage(damage) </code> 
 
 **Health3D** works exactly like **Health2D** but you dont reference 2D but 3D. Though the new variable is just a float that will be just how far above (or below if number is lower than 0.0) will the [item](#5-drop-on-death) be spawned.
 
-# SceneSpawner <img width="24" height="24" alt="scene_spawner" src="/SceneSpawner/SceneSpawner.gd"/>
+# SceneSpawner <img width="24" height="24" alt="scene_spawner" src="/SceneSpawner/file_plus.svg"/>
 
 It spawns one spesific scene to the game!
 
