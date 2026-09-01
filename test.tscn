@@ -8,6 +8,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
 radius = 15.132746
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5p6vy"]
+
 [node name="Node2D" type="Node2D" unique_id=1454336553]
 script = ExtResource("1_6uqi0")
 
@@ -68,7 +70,7 @@ offset_right = 26.5
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Area2D" type="Area2D" parent="." unique_id=2102983500]
+[node name="Area2D" type="CharacterBody2D" parent="." unique_id=1834589469]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=859130916]
 shape = SubResource("CircleShape2D_5p6vy")
@@ -83,6 +85,20 @@ texture = ExtResource("1_8uh7m")
 script = ExtResource("2_8uh7m")
 user = NodePath("..")
 metadata/_custom_type_script = "uid://cfdwhqfwsap3"
+
+[node name="DragDropComponent2D" type="Node" parent="Area2D" unique_id=397970689 node_paths=PackedStringArray("user", "drop_sensor")]
+script = ExtResource("4_ppyta")
+user = NodePath("..")
+drop_sensor = NodePath("../Area2D")
+behavior = 1
+drop_zone_group = "drop_zones"
+metadata/_custom_type_script = "uid://bdn5jgrpa2e5p"
+
+[node name="Area2D" type="Area2D" parent="Area2D" unique_id=279283219]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D/Area2D" unique_id=1064203529]
+shape = SubResource("RectangleShape2D_5p6vy")
+debug_color = Color(0.97312635, 0, 0.4395546, 0.41960785)
 
 [node name="Area2D2" type="Area2D" parent="." unique_id=1895157712 groups=["drop_zones"]]
 position = Vector2(-85, -30)

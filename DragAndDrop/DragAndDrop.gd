@@ -7,22 +7,26 @@ enum DropBehavior\
  { 
 	## Stays exactly where you let go.
 	DROP_ANYWHERE,
-	## Snaps to a specific area if dropped on it, otherwise stays where you let go.
+	## Snaps to a specific zone if dropped on it, otherwise stays where you let go.
 	SNAP_TO_ZONE,
-	## Snaps to a specific area, but rubber-bands back to start if missed.
+	## Snaps to a specific area, but returns back to start if missed.
 	RETURN_IF_NO_ZONE
 }
 
-## The parent must be a [CollisionObject2D] to receive mouse events. If empty the parent will be placed, assuming the parent is [CollisionObject2D].
+## The Node who uses the component, must be a [CollisionObject2D] to receive mouse events. If empty the parent will be placed, assuming the parent is [CollisionObject2D].
 @export var user: CollisionObject2D
-## Defines how the parent node behaves when the mouse is released.
+## The Area2D responsible for detecting drop zones. If empty, assumes the user itself is the Area2D.
+@export var drop_sensor: Area2D
+## Defines how the parent node behaves when the drag has ended.
 @export var behavior: DropBehavior = DropBehavior.DROP_ANYWHERE
-## The [b]group[/b] that zones will be. If empty the placeholder will be placed.
+## The name of the [b]group[/b] that zones will be. If empty the placeholder will be placed.
 @export_placeholder("drop_zone") var drop_zone_group: String
-## The action name that will be used to start drag. If empty the placeholder will be placed.
+## The action name that will be used to start draging. If empty the placeholder will be placed.
 @export_placeholder("drag") var input_start_action:String
-## The action name that will be used to stop drag. If empty the placeholder will be placed.
+## The action name that will be used to cancel draging. If empty the placeholder will be placed.
 @export_placeholder("end_drag") var input_end_action:String
+## The trans type of the tween animation that will be played when drag is canceled or invalid.
+@export var tween_trans:Tween.TransitionType = Tween.TRANS_SINE
 
 var is_dragging: bool = false
 var drag_offset: Vector2 = Vector2.ZERO
@@ -35,10 +39,12 @@ func _ready() -> void:
 		if user:
 			push_warning('You forgot to place the "user" to the DragDropComponent2D (',self,'). Automatically added the parent (',user,'), KOSSAINIS')
 		else:
-			push_error("You forgot to place the user to the DragDropComponent2D (",self,"). Automatically tried to add the parent (",get_parent(),") but it wasn't a Node2D Node, KOSSAINIS")
-		
+			push_error("You forgot to place the user to the DragDropComponent2D (",self,"). Automatically tried to add the parent (",get_parent(),") but it wasn't a CollisionObject2D, KOSSAINIS")
 			set_process(false)
 			return
+	
+	if drop_zone_group == "":
+		drop_zone_group = "drop_zone"
 	
 	if input_end_action == "":
 		input_end_action = "end_drag"
@@ -46,46 +52,49 @@ func _ready() -> void:
 	if input_start_action == "":
 		input_start_action = "drag"
 	
-	if drop_zone_group == "":
-		drop_zone_group = "drop_zone"
+	# Fallback for the sensor
+	if behavior != DropBehavior.DROP_ANYWHERE and not drop_sensor:
+		drop_sensor = user as Area2D
+		if not drop_sensor:
+			push_error("DragDropComponent2D: Snap behaviors require a valid 'drop_sensor' Area2D if the user is a CharacterBody2D.")
 	
-	# Force the parent to be pickable just in case you forgot to check the box
 	user.input_pickable = true
 	user.input_event.connect(_on_parent_input_event)
-	set_process(false) # Don't waste CPU cycles processing when not dragging
+	set_process(false)
 
 func _on_parent_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed(input_start_action):
 		start_dragging()
 
 func _input(event: InputEvent) -> void:
-	# CRITICAL: We catch the release in _input, not _input_event. 
-	# If the user drags the mouse very fast, the cursor leaves the object, 
-	# and the parent won't register the mouse release.
-	if is_dragging and event.is_action_pressed(input_end_action):
-		set_process(false)
-		_return_to_start()
-	if is_dragging and event.is_action_released(input_start_action):
-		stop_dragging()
+	if not is_dragging: return
+	
+	# Properly route cancel logic through a unified cleanup function
+	if event.is_action_pressed(input_end_action):
+		_end_drag_sequence(true)
+	elif event.is_action_released(input_start_action):
+		_end_drag_sequence(false)
 
 func start_dragging() -> void:
 	is_dragging = true
 	start_position = user.global_position
-	# Calculate offset so the object doesn't snap its center to the cursor instantly
 	drag_offset = user.global_position - user.get_global_mouse_position()
-	
-	# Optional but good UX: bump z-index so it drags OVER other items
 	user.z_index += 100 
 	set_process(true)
 
 func _process(_delta: float) -> void:
 	user.global_position = user.get_global_mouse_position() + drag_offset
 
-func stop_dragging() -> void:
+func _end_drag_sequence(was_canceled: bool) -> void:
+	# Clean up state globally first
 	is_dragging = false
 	user.z_index -= 100
 	set_process(false)
 	
+	if was_canceled:
+		_return_to_start()
+		return
+		
 	match behavior:
 		DropBehavior.DROP_ANYWHERE:
 			pass 
@@ -95,25 +104,19 @@ func stop_dragging() -> void:
 			_try_snap_to_zone(true)
 
 func _try_snap_to_zone(return_on_fail: bool) -> void:
-	if not user is Area2D:
-		push_error("DragDropComponent2D: Snap behavior requires the parent to be an Area2D to detect drop zones.")
-		if return_on_fail:
-			_return_to_start()
+	if not drop_sensor:
+		if return_on_fail: _return_to_start()
 		return
 		
-	# Check what areas the parent is currently touching
-	var overlapping = user.get_overlapping_areas()
+	var overlapping = drop_sensor.get_overlapping_areas()
 	for area in overlapping:
 		if area.is_in_group(drop_zone_group):
-			# Found a valid drop zone! Snap to its center.
 			user.global_position = area.global_position
 			return 
 			
-	# We didn't find a drop zone.
 	if return_on_fail:
 		_return_to_start()
 
 func _return_to_start() -> void:
-	# Never just teleport objects back instantly, it looks terrible. Use a Tween.
 	var tween = get_tree().create_tween()
-	tween.tween_property(user, "global_position", start_position, 0.2).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(user, "global_position", start_position, 0.2).set_trans(tween_trans)
