@@ -2,10 +2,12 @@
 
 - <img width="16" height="16" alt="gravity" src="/Gravity/gravity.svg"/> [Gravity](#gravity)
 - <img width="16" height="16" alt="drag_and_drop" src="/DragAndDrop/chess_pawn.svg"/> [Drag and Drop](#drag-and-drop)
+- <img width="16" height="16" alt="health2d" src="/Health/2D/heart.svg"/> or <img width="16" height="16" alt="health3d" src="/Health/3D/heart.svg"/> [Health](#health)
+- [Glossary](#glossary)
 
 <br> <br>
 
-# Gravity
+# Gravity <img width="16" height="16" alt="gravity" src="/Gravity/gravity.svg"/> 
 
 This component adds gravity to a Node.
 
@@ -83,13 +85,13 @@ Keep in mind that if you want to have **descending gravity factor** but not a [*
 
 <br>
 
-# Drag And Drop
+# Drag And Drop <img width="16" height="16" alt="drag_and_drop" src="/DragAndDrop/chess_pawn.svg"/>
 
 This component is used to add a drag and drop feature to an [*CollisionObject2D*](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html).
 
 ## Use
 
-If we had a [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) with no scripts, and as children a **collision shape** and a **drag and drop** when you "grab" the [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) inside the collision shape you can move it! To work you must look at those 6 things:
+If we had a [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) with no scripts, and as children a [**CollisionShape2D**](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) and a **drag and drop** when you "grab" the [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) inside the [CollisionShape2D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) you can move it! To work you must look at those 6 things:
 
 <ol>
     <li> User </li>
@@ -105,7 +107,7 @@ When all of these are filled you can use the **drag and drop**!
 
 ### 1. User
 
-The Node who uses the component, must be a [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html) to receive mouse events. If empty the parent will be placed, assuming the parent is [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html). If empty at last, the game will give you an <font color="#eb4634"> ***Error***</font>.
+The Node who uses the component, must be a [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html) to receive mouse events. If empty the parent will be placed, assuming the parent is [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html). If empty at last, the game will give you an <font color="red"> ***Error***</font>.
 
 ### 2. Drop Sensor
 
@@ -167,5 +169,102 @@ Zone is an [*Area2D*](https://docs.godotengine.org/en/stable/classes/class_area2
 
 <br>
 
-# Health
-*****TO BE WRITEN*****
+# Health <img width="16" height="16" alt="health2d" src="/Health/2D/heart.svg"/> <img width="16" height="16" alt="health3d" src="/Health/3D/heart.svg"/>
+Health is a *dimention* component, it has a 2D and 3D variation. They have the same use with one key defference in variables:
+
+|Variable|Health2D|Health3D|
+| :------: | :------: | :----: |
+|User    |[Node2D](https://docs.godotengine.org/en/stable/classes/class_node2d.html#node2d)|[Node3D](https://docs.godotengine.org/en/stable/classes/class_node3d.html)|
+|Max Health|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Starting Health Per|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Post Death Action|[enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string)|[enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string)|
+|Drop On Death|[PackedScene](https://docs.godotengine.org/en/4.4/classes/class_packedscene.html)|[PackedScene](https://docs.godotengine.org/en/4.4/classes/class_packedscene.html)|
+|Distance Above Floor|*Not included*|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+
+As you can see there is one more variable in 3D variation of the component!
+
+<center><strong>Lets Dive In!</strong></center>
+
+## Health2D
+
+A component that counts the **health** of a Node.
+
+### Setup Properties
+To set a **Health2D** you need to add 5 variables:
+
+1. User
+2. Max Health
+3. Starting Health Per
+4. Post Death Action
+5. Drop On Death
+
+#### 1. User
+
+User is the one using the component, the one that health is related to.
+
+#### 2. Max Health
+
+The maximum health capacity.
+
+#### 3. Starting Health Per
+
+The percentage of max health the component starts with. (e.g., if max health is 100.0 and this is 40.0, the entity starts with 40.0 health).
+
+#### 4. Post Death Action
+
+What happens after [death](#death-when-health-reaches-00). It can be 2 things:
+
+- [Restart Scene](#restart-scene)
+- [Destroy Node](#destroy-node)
+
+##### Restart Scene
+
+Reloads the current active scene tree.
+
+##### Destroy Node
+
+Queues the [User](#1-user-1) node for deletion and spawns the [drop item](#5-drop-on-death) (if any).
+
+#### 5. Drop On Death
+
+A [*PackedScene*](https://docs.godotengine.org/en/4.4/classes/class_packedscene.html) to spawn at the [User's](#1-user-1) location upon [death](#death-when-health-reaches-00). If null, nothing drops.
+
+### Signals
+
+This component comes with 4 signals:
+
+1. [damage_taken](#damage_taken)
+2. [health_gained](#health_gained)
+3. [died](#died)
+4. [health_changed(current_health, max_health)](#health_changedcurrent_health-max_health)
+
+#### damage_taken
+
+Emitted when the [User](#1-user-1) loses health.
+
+#### health_gained
+
+Emitted when the [User](#1-user-1) is healed.
+
+#### died
+
+Emitted when [dies](#death-when-health-reaches-00).
+
+#### health_changed(current_health, max_health)
+
+Emitted any time health is modified, passing the new values.
+
+### Basic use
+
+Now to use a **Health2D** you just add a reference to the **health** component on [Users](#1-user) script like this:
+
+<code>@export var health:Health2D</code>
+
+Now to **take damage** you just call: <code> health.take_damage(damage) </code> where "*damage*" is the amout of damage you want to deal, to **heal** you just write: <code>health.heal(heal_amout)</code> where "*heal_amount*" the amount of health you want to be replenished.
+
+## Health3D
+
+**Health3D** works exactly like **Health2D** but you dont reference 2D but 3D. Though the new variable is just a float that will be just how far above (or below if number is lower than 0.0) will the [item](#5-drop-on-death) be spawned.
+
+# Glossary
+###### death: when health reaches <code>0.0</code>.

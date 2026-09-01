@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://f4e0x2dt70fd" path="res://InputBuffer/lightning_in_clockwise_arrow.svg" id="1_8uh7m"]
 [ext_resource type="Script" uid="uid://cfdwhqfwsap3" path="res://SquashAnimation/SquashAnimation.gd" id="2_8uh7m"]
 [ext_resource type="Script" uid="uid://bdn5jgrpa2e5p" path="res://DragAndDrop/DragAndDrop.gd" id="4_ppyta"]
+[ext_resource type="Script" uid="uid://biq5osqhjrwhd" path="res://Health/2D/Health2D.gd" id="5_g14j6"]
+[ext_resource type="Script" uid="uid://bhgpxgxxbhc3u" path="res://Health/3D/Health3D.gd" id="6_vbegm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
 radius = 15.132746
@@ -136,6 +138,14 @@ texture = ExtResource("1_8uh7m")
 script = ExtResource("2_8uh7m")
 user = NodePath("..")
 metadata/_custom_type_script = "uid://cfdwhqfwsap3"
+
+[node name="Health2D" type="Node" parent="." unique_id=1115519948]
+script = ExtResource("5_g14j6")
+metadata/_custom_type_script = "uid://biq5osqhjrwhd"
+
+[node name="Health3D" type="Node" parent="Health2D" unique_id=2059736354]
+script = ExtResource("6_vbegm")
+metadata/_custom_type_script = "uid://bhgpxgxxbhc3u"
 
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider2" to="." method="_on_h_slider_2_value_changed"]

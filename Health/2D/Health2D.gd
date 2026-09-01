@@ -5,16 +5,16 @@ class_name Health2D
 enum PostDeath{RESTART_SCENE,DESTROY_NODE}
 
 ## Emitted when damage is taken.
-signal _on_take_damage
+signal damage_taken
 ## Emitted when health is gained.
-signal _on_health_gained
+signal health_gained
 ## Emitted when health reaches 0.
-signal _died
+signal died
 ## Emitted when health is changed
-signal _on_change(current:float,max:float)
+signal change(current:float,max:float)
 
 ## Who is using the component.
-@export var user:Node
+@export var user:Node2D
 
 ## Max Health.
 @export var max_health:float
@@ -34,19 +34,20 @@ func _ready() -> void:
 	
 	if starting_health_per == 100.0:
 		return
-	health = max_health * starting_health_per
+	health = max_health * (starting_health_per / 100.0)
 
+## Call it to give damage.
 func take_damage(amount:float)->void:
 	health -= amount
 	
-	_on_change.emit(health,max_health)
-	_on_take_damage.emit()
+	change.emit(health,max_health)
+	damage_taken.emit()
 	
 	if health <= 0:
-		death()
+		_death()
 
-func death()->void:
-	_died.emit()
+func _death()->void:
+	died.emit()
 	
 	if drop_on_death != null:
 		var drop := drop_on_death.instantiate()
@@ -61,11 +62,12 @@ func death()->void:
 		# Defer the deletion of the entire scene
 		get_tree().call_deferred("reload_current_scene")
 
+## Call it to heal.
 func heal(amount:float)->void:
 	health += amount
 	
 	if health > max_health:
 		health = max_health
 	
-	_on_health_gained.emit()
-	_on_change.emit(health,max_health)
+	health_gained.emit()
+	change.emit(health,max_health)
