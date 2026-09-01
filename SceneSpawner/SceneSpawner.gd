@@ -36,7 +36,7 @@ func spawn(parent: Node = get_parent()) -> Node:
 	if spawn_top_level:
 		parent = get_tree().current_scene
 	
-	parent.add_child(new_node)
+	parent.call_deferred("add_child",new_node)
 	
 	if match_transform_top_level and spawn_top_level:
 		if "global_position" in spawn_source and "global_position" in new_node:

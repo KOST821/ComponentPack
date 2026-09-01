@@ -11,7 +11,7 @@ signal health_gained
 ## Emitted when health reaches 0.
 signal died
 ## Emitted when health is changed
-signal change(current:float,max:float)
+signal health_changed(current:float,max:float)
 
 ## Who is using the component.
 @export var user:Node2D
@@ -40,7 +40,7 @@ func _ready() -> void:
 func take_damage(amount:float)->void:
 	health -= amount
 	
-	change.emit(health,max_health)
+	health_changed.emit(health,max_health)
 	damage_taken.emit()
 	
 	if health <= 0:
@@ -70,4 +70,4 @@ func heal(amount:float)->void:
 		health = max_health
 	
 	health_gained.emit()
-	change.emit(health,max_health)
+	health_changed.emit(health,max_health)

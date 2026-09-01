@@ -2,7 +2,7 @@
 
 - <img width="16" height="16" alt="gravity" src="/Gravity/gravity.svg"/> [Gravity](#gravity)
 - <img width="16" height="16" alt="drag_and_drop" src="/DragAndDrop/chess_pawn.svg"/> [Drag and Drop](#drag-and-drop)
-- <img width="16" height="16" alt="health2d" src="/Health/2D/heart.svg"/> or <img width="16" height="16" alt="health3d" src="/Health/3D/heart.svg"/> [Health](#health)
+- <img width="16" height="16" alt="health2d" src="/Health/2D/heart.svg"/><img width="16" height="16" alt="health3d" src="/Health/3D/heart.svg"/> [Health](#health)
 - [Glossary](#glossary)
 
 <br> <br>
@@ -190,6 +190,7 @@ As you can see there is one more variable in 3D variation of the component!
 A component that counts the **health** of a Node.
 
 ### Setup Properties
+---
 To set a **Health2D** you need to add 5 variables:
 
 1. User
@@ -230,6 +231,7 @@ Queues the [User](#1-user-1) node for deletion and spawns the [drop item](#5-dro
 A [*PackedScene*](https://docs.godotengine.org/en/4.4/classes/class_packedscene.html) to spawn at the [User's](#1-user-1) location upon [death](#death-when-health-reaches-00). If null, nothing drops.
 
 ### Signals
+---
 
 This component comes with 4 signals:
 
@@ -254,7 +256,8 @@ Emitted when [dies](#death-when-health-reaches-00).
 
 Emitted any time health is modified, passing the new values.
 
-### Basic use
+### How to use
+----
 
 Now to use a **Health2D** you just add a reference to the **health** component on [Users](#1-user) script like this:
 
@@ -266,5 +269,58 @@ Now to **take damage** you just call: <code> health.take_damage(damage) </code> 
 
 **Health3D** works exactly like **Health2D** but you dont reference 2D but 3D. Though the new variable is just a float that will be just how far above (or below if number is lower than 0.0) will the [item](#5-drop-on-death) be spawned.
 
+# SceneSpawner
+
+It spawns one spesific scene to the game!
+
+## Setup Properties
+
+To work it needs 3 variables to be set:
+1. Scene
+2. Spawn Top Level
+3. Match Transform Top Level
+
+### 1. Scene
+
+Accepts a [PackedScene](https://docs.godotengine.org/en/4.4/classes/class_packedscene.html), this is the scene that will be spawned.
+
+### 2. Spawn Top Level
+
+If ****true**** the *New Node* will be spawned independently from the other [Nodes](https://docs.godotengine.org/en/4.4/classes/class_node.html).
+
+### 3. Match Transform Top Level
+
+If ****true**** the *New Node* will have the transform of the parent [Node](https://docs.godotengine.org/en/4.4/classes/class_node.html).
+
+## Basic Use
+
+Let's say you have a scene that you want to *instantiate* and a scene that you want to *instatiate into*.
+
+> From now on the scene you want to *instatiate* will be reffered as ***UI*** and the scene you want to *instantiate into* will be reffered as ***menu***.
+
+To instantiate the *UI* to *menu* you just add the Scene spawner as a *****CHILD***** of *menu* and attach the *UI* to the [scene](#1-scene) variable. Then you add a refferance of the **SceneSpawner** in the *menu's* script like this: <code>@export var scene_spawner:SceneSpawner</code> and now by calling <code>scene_spawner.spawn(self)</code> you are spawning the *UI* to the menu.
+
+> In that case inside <code>scene_spawner.spawn(...)</code> we added self because we wanted to add the UI to the script we were writing. We write inside the scene we want to *instantiate into*. If that scene is the **SceneSpawner's** parent we can leave it empty.
+
+Now based of how your boolian variables *([spawn top level](#2-spawn-top-level) and [match transform top level](#3-match-transform-top-level))* are assigned there will be different instantiations!
+
+- If both of them are ****true**** the *scene you want to spawn* will be spawned to the scene as a *****CHILD***** of the root node but it will have the [transform](#transform-the-global-position-and-rotation) of the node we have passed inside the spawn, *menu* in this case.
+- If [spawn top level](#2-spawn-top-level) is only ****true**** the *scene you want to spawn* will be spawned to the scene as a *****CHILD***** of the root node but it will have the default [transform](#transform-the-global-position-and-rotation) (position: 0.0 and rotation: 0.0).
+- If none of them are ****true**** the *scene you want to spawn* will be spawned to the scene as a *****CHILD***** of the node you passed in <code>*spawn*</code> and it will have the [transform](#transform-the-global-position-and-rotation) of the node we have passed inside the spawn, *menu* in this case.
+
+## Advanced use
+
+There are a lot of times we want to run a code to the scene we are adding, in this case you do not use: <code>scene_spawner.spawn(...)</code> but you use:
+
+<code>
+var ui:= scene_spawner.instantiate()<br>
+#Here you run the code you want<br>
+#Find where you want to instantiate for me is menu<br>
+menu.add_child(ui)
+</code>
+
 # Glossary
+
 ###### death: when health reaches <code>0.0</code>.
+
+###### transform: the global position and rotation.
