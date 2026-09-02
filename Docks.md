@@ -3,9 +3,12 @@
 - ![gravity](/Gravity/gravity.svg) [Gravity](#gravity-)
 - ![drag_and_drop](/DragAndDrop/chess_pawn.svg) [Drag and Drop](#drag-and-drop-)
 - [Health](#health--)
-    * ![heart2d](/Health/2D/heart.svg) [Health2D](#health2d)
-    * ![heart3d](/Health/3D/heart.svg) [Health3D](#health3d)
+    * ![heart2d](/Health/2D/heart.svg) [Health2D](#health2d-)
+    * ![heart3d](/Health/3D/heart.svg) [Health3D](#health3d-)
 - ![scene_spawner](/SceneSpawner/file_plus.svg) [SceneSpawner](#scenespawner-)
+- [Damage System](#damage-system----)
+    * ![hitbox2d](/HitAndHurtBox/2D/HitBox/swords.svg) ![hitbox3d](/HitAndHurtBox/3D/HitBox/swords.svg) [Hitboxes](#hitboxes--)
+    * ![hurtbox2d](/HitAndHurtBox/2D/HurtBox/shield.svg) ![hurtbox3d](/HitAndHurtBox/3D/HurtBox/shield.svg) [Hurtboxes](#hurtboxes--)
 - [Glossary](#glossary)
 
 <br> <br>
@@ -18,20 +21,22 @@ This component adds gravity to a Node.
 
 If we have a *[CharacterBody2D](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html)* with this script: <br>
 
-    extends CharacterBody2D
+```GDScript
+extends CharacterBody2D
 
-    const SPEED: float = 500.0
+const SPEED: float = 500.0
 
-    func _physics_process(delta: float) -> void:
-        # Get the input direction and handle the movement.
-        var direction := Input.get_axis("ui_left", "ui_right")
+func _physics_process(delta: float) -> void:
+    # Get the input direction and handle the movement.
+    var direction := Input.get_axis("ui_left", "ui_right")
 
-        if direction:
-            velocity.x = direction * SPEED
-        else:
-            velocity.x = move_toward(velocity.x, 0, SPEED)
+    if direction:
+        velocity.x = direction * SPEED
+    else:
+        velocity.x = move_toward(velocity.x, 0, SPEED)
 
-        move_and_slide()
+    move_and_slide()
+```
 
 Attaching a **Gravity** Node to it, and adjusting in the editor the <code> gravity</code> variable to your liking, if you add this line of code: <br>
 
@@ -182,7 +187,7 @@ Zone is an [*Area2D*](https://docs.godotengine.org/en/stable/classes/class_area2
 <br>
 
 # Health <img width="24" height="24" alt="health2d" src="/Health/2D/heart.svg"/> <img width="24" height="24" alt="health3d" src="/Health/3D/heart.svg"/>
-Health is a *dimention* component, it has a 2D and 3D variation. They have the same use with one key defference in variables:
+**Health** is a *dimention* component, it has a 2D and 3D variation. They have the same use, with one key defference in variables:
 
 |Variable|Health2D|Health3D|
 | :------: | :------: | :----: |
@@ -196,7 +201,7 @@ Health is a *dimention* component, it has a 2D and 3D variation. They have the s
 As you can see there is one more variable in 3D variation of the component!
 
 
-## Health2D
+## Health2D <img width="24" height="24" alt="health2d" src="/Health/2D/heart.svg"/>
 
 A component that counts the **health** of a Node.
 
@@ -276,7 +281,7 @@ Now to use a **Health2D** you just add a reference to the **health** component o
 
 Now to **take damage** you just call: <code> health.take_damage(damage) </code> where "*damage*" is the amout of damage you want to deal, to **heal** you just write: <code>health.heal(heal_amout)</code> where "*heal_amount*" the amount of health you want to be replenished.
 
-## Health3D
+## Health3D <img width="24" height="24" alt="health3d" src="/Health/3D/heart.svg"/>
 
 **Health3D** works exactly like **Health2D** but you dont reference 2D but 3D. Though the new variable is just a float that will be just how far above (or below if number is lower than 0.0) will the [item](#5-drop-on-death) be spawned.
 
@@ -307,10 +312,12 @@ If ****true**** the *New Node* will have the transform of the parent [Node](http
 
 Let's say you have a scene that you want to *instantiate* and a scene that you want to *instatiate into*.
 
+> [!NOTE]
 > From now on the scene you want to *instatiate* will be reffered as ***UI*** and the scene you want to *instantiate into* will be reffered as ***menu***.
 
 To instantiate the *UI* to *menu* you just add the Scene spawner as a *****CHILD***** of *menu* and attach the *UI* to the [scene](#1-scene) variable. Then you add a refferance of the **SceneSpawner** in the *menu's* script like this: <code>@export var scene_spawner:SceneSpawner</code> and now by calling <code>scene_spawner.spawn(self)</code> you are spawning the *UI* to the menu.
 
+> [!NOTE]
 > In that case inside <code>scene_spawner.spawn(...)</code> we added self because we wanted to add the UI to the script we were writing. We write inside the scene we want to *instantiate into*. If that scene is the **SceneSpawner's** parent we can leave it empty.
 
 Now based of how your boolian variables *([spawn top level](#2-spawn-top-level) and [match transform top level](#3-match-transform-top-level))* are assigned there will be different instantiations!
@@ -323,12 +330,91 @@ Now based of how your boolian variables *([spawn top level](#2-spawn-top-level) 
 
 There are a lot of times we want to run a code to the scene we are adding, in this case you do not use: <code>scene_spawner.spawn(...)</code> but you use:
 
-<code>
-var ui:= scene_spawner.instantiate()<br>
-#Here you run the code you want<br>
-#Find where you want to instantiate for me is menu<br>
+```GDScript
+var ui:= scene_spawner.instantiate()
+#Here you run the code you want
+#Find where you want to instantiate for me is menu
 menu.add_child(ui)
-</code>
+```
+
+# Damage System <img width="24" height="24" alt="hitbox2d" src="/HitAndHurtBox/2D/HitBox/swords.svg"> <img width="24" height="24" alt="hitbox3d" src="/HitAndHurtBox/3D/HitBox/swords.svg"> <img width="24" height="24" alt="hurtbox2d" src="/HitAndHurtBox/2D/HurtBox/shield.svg"> <img width="24" height="24" alt="hurtbox3d" src="/HitAndHurtBox/3D/HurtBox/shield.svg">
+
+The **Damage System** is a decoupled pair of components ([HitBoxes](#hitboxes--) and [HurtBoxes](#hurtboxes--)) available in both 2D and 3D variations. They rely on Godot's [Area2D](https://docs.godotengine.org/en/stable/classes/class_area2d.html#area2d) or [Area3D](https://docs.godotengine.org/en/stable/classes/class_area3d.html) nodes to detect overlap and safely pass damage values. To function, a Damage dealer ([HitBox](#hitboxes--)) must collide with a Damage receiver ([HurtBox](#hurtboxes--)) of the matching dimension.
+
+## HitBoxes <img width="24" height="24" alt="hitbox2d" src="/HitAndHurtBox/2D/HitBox/swords.svg"> <img width="24" height="24" alt="hitbox3d" src="/HitAndHurtBox/3D/HitBox/swords.svg">
+
+**HitBoxes** are the active damage dealers. Attach a ***HitBox*** component to anything that causes harm (e.g., a sword, a bullet, a trap).
+
+### Basic use
+
+---
+
+To work you just grab the correct dimensional node, *if it is a 2D node you grab the 2D **hitbox**, else if it is a 3D node you grab the 3D **hitbox***, you adjust the damage it will deal in the inspector and you are done!
+Add the correct dimensional node, *if it is a 2D node you grab the 2D **hitbox**, else if it is a 3D node you grab the 3D **hitbox***, as a child of your damage-dealing entity. Add a Godot [CollisionShape2D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html#collision-shapes-2d) or [CollisionShape3D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_3d.html#collision-shapes-3d)  to define its physical area, and adjust the Damage property in the inspector.
+
+> [!TIP]
+> The [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control) nodes are counted as 2D nodes.
+
+### Advance use
+
+---
+
+You can always modify the damage through code by adding the instance of the **hitbox** to the code like:
+
+```GDScript
+@export var hitbox:HitBox2D # Or HitBox3D depending what you use.
+```
+
+and to change the damage just write:
+
+```GDScript
+hitbox.damage = amount # amout is a float number, you can always write it as it is e.g. 4.0
+```
+
+## HurtBoxes <img width="24" height="24" alt="hurtbox2d" src="/HitAndHurtBox/2D/HurtBox/shield.svg"> <img width="24" height="24" alt="hurtbox3d" src="/HitAndHurtBox/3D/HurtBox/shield.svg">
+
+**HurtBoxes** are the passive receivers that [HitBoxes](#hitboxes--) search for. They act as a bridge between the physical collision and your entity's health logic.
+
+### Setup Properties
+
+---
+
+To setup we need to adjust 2 variables:
+1. [Health Counter](#health-counter)
+2. [Method](#method)
+
+#### Health Counter
+
+Who is tracking the health.
+
+#### Method
+
+The name of the method that reduces the health. If empty it keeps the placeholder.
+
+#### EXAMPLE
+
+Let's say for example we have the [Health Component](#health--) as a health tracker. We add this component as the *Health Counter*. To the *Method* if we open the script of the component we will find this function:
+
+```GDScript
+func take_damage(amount:float)->void:
+	health -= amount
+	
+	health_changed.emit(health,max_health)
+	damage_taken.emit()
+	
+	if health <= 0:
+		_death()
+```
+
+As you can see in the first line in this function we remove the damage:
+
+```GDScript 
+func take_damage(amount:float)->void:
+	health -= amount
+    ...
+```
+
+So in *Method* we just copy and paste the name, DO NOT ADD PARENTHESES! If your player script has that kind of function you just add this node and name to the correct variable spots.
 
 # Glossary
 

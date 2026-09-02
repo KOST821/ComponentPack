@@ -2,7 +2,7 @@
 extends Area2D
 class_name HurtBox2D
 
-## Who is traking the health of the "user".
+## Who is traking the health.
 @export var health_counter:Node
 ## The name of the method that reduces the health. If empty it keeps the placeholder.
 @export_placeholder("take_damage") var method:String
@@ -14,8 +14,8 @@ func _ready() -> void:
 	
 	monitoring = false
 
-func take_damage(damage:int)->void:
-	if health_counter:
+func take_damage(damage:float)->void:
+	if not health_counter:
 		push_warning('You forgot to place the "health_counter" to the HurtBox2D (',self,'), KOSSAINIS')
 		return
 	
