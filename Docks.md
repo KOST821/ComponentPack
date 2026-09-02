@@ -1,14 +1,16 @@
 # How to use
 
-- <img width="16" height="16" alt="gravity" src="/Gravity/gravity.svg"/> [Gravity](#gravity)
-- <img width="16" height="16" alt="drag_and_drop" src="/DragAndDrop/chess_pawn.svg"/> [Drag and Drop](#drag-and-drop)
-- <img width="16" height="16" alt="health2d" src="/Health/2D/heart.svg"/><img width="16" height="16" alt="health3d" src="/Health/3D/heart.svg"/> [Health](#health)
-- <img width="16" height="16" alt="scene_spawner" src="/SceneSpawner/file_plus.svg"/> [SceneSpawner](#scenespawner)
+- ![gravity](/Gravity/gravity.svg) [Gravity](#gravity-)
+- ![drag_and_drop](/DragAndDrop/chess_pawn.svg) [Drag and Drop](#drag-and-drop-)
+- [Health](#health--)
+    * ![heart2d](/Health/2D/heart.svg) [Health2D](#health2d)
+    * ![heart3d](/Health/3D/heart.svg) [Health3D](#health3d)
+- ![scene_spawner](/SceneSpawner/file_plus.svg) [SceneSpawner](#scenespawner-)
 - [Glossary](#glossary)
 
 <br> <br>
 
-# Gravity <img width="16" height="16" alt="gravity" src="/Gravity/gravity.svg"/> 
+# Gravity <img width="24" height="24" alt="gravity" src="/Gravity/gravity.svg"/> 
 
 This component adds gravity to a Node.
 
@@ -39,26 +41,28 @@ Attaching a **Gravity** Node to it, and adjusting in the editor the <code> gravi
 
 So our code now is: <br>
 
-    extends CharacterBody2D
+```GDScript
+extends CharacterBody2D
 
-    @export var gravity:Gravity # NOTE: This is the instance of the component.
+@export var gravity:Gravity # NOTE: This is the instance of the component.
 
-    const SPEED:float = 500.0
+const SPEED:float = 500.0
 
-    func _physics_process(delta:float) -> void:
-        # Get the input direction and handle the movement.
-        var direction := Input.get_axis("ui_left", "ui_right")
+func _physics_process(delta:float) -> void:
+    # Get the input direction and handle the movement.
+    var direction := Input.get_axis("ui_left", "ui_right")
 
-        if direction:
-            velocity.x = direction * SPEED
-        else:
-            velocity.x = move_toward(velocity.x, 0, SPEED)
+    if direction:
+        velocity.x = direction * SPEED
+    else:
+        velocity.x = move_toward(velocity.x, 0, SPEED)
         
-        # CRITICAL: Here we apply the gravity to the player!
-        if not is_on_floor():
-            velocity.y = gravity.get_gravity(delta, velocity.y)
+    # CRITICAL: Here we apply the gravity to the player!
+    if not is_on_floor():
+        velocity.y = gravity.get_gravity(delta, velocity.y)
 
-        move_and_slide()
+    move_and_slide()
+```
 
 ## Advanced Settings
 
@@ -68,25 +72,32 @@ The <code>get_gravity(...)</code> function accepts optional parameters to fine-t
 
 In the example to prevent your character from falling infinitely fast, provide a **maximum falling speed** as the third argument. If we want the max falling speed to be 450.0, we edit the line like this:
 
-    if not is_on_floor():
-        velocity.y = gravity.get_gravity(delta, velocity.y)
+```GDScript
+if not is_on_floor():
+    velocity.y = gravity.get_gravity(delta, velocity.y)
+```
+
 And make it like this:
 
-    if not is_on_floor():
-        velocity.y = gravity.get_gravity(delta, velocity.y, 450.0)
+```GDScript
+if not is_on_floor():
+    velocity.y = gravity.get_gravity(delta, velocity.y, 450.0)
+```
 
 ### Descending Gravity Factor (Fall Multiplier)
 
 To make jumps feel less "floaty", you can apply a multiplier to the gravity only when the entity is falling downwards. Values above 1.0 create heavier, snappier falls (commonly seen in platformers).
 
-    if not is_on_floor():
-        velocity.y = gravity.get_gravity(delta, velocity.y, 450.0, 1.5)
+```GDScript
+if not is_on_floor():
+    velocity.y = gravity.get_gravity(delta, velocity.y, 450.0, 1.5)
+```
 
 Keep in mind that if you want to have **descending gravity factor** but not a [**maximum falling speed**](#max-falling-speed-terminal-velocity) you just add <code> 0.0 </code> to the 3rd value (**maximum falling speed**).
 
 <br>
 
-# Drag And Drop <img width="16" height="16" alt="drag_and_drop" src="/DragAndDrop/chess_pawn.svg"/>
+# Drag And Drop <img width="24" height="24" alt="drag_and_drop" src="/DragAndDrop/chess_pawn.svg"/>
 
 This component is used to add a drag and drop feature to an [*CollisionObject2D*](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html).
 
@@ -170,7 +181,7 @@ Zone is an [*Area2D*](https://docs.godotengine.org/en/stable/classes/class_area2
 
 <br>
 
-# Health <img width="16" height="16" alt="health2d" src="/Health/2D/heart.svg"/> <img width="16" height="16" alt="health3d" src="/Health/3D/heart.svg"/>
+# Health <img width="24" height="24" alt="health2d" src="/Health/2D/heart.svg"/> <img width="24" height="24" alt="health3d" src="/Health/3D/heart.svg"/>
 Health is a *dimention* component, it has a 2D and 3D variation. They have the same use with one key defference in variables:
 
 |Variable|Health2D|Health3D|
@@ -184,7 +195,6 @@ Health is a *dimention* component, it has a 2D and 3D variation. They have the s
 
 As you can see there is one more variable in 3D variation of the component!
 
-<center><strong>Lets Dive In!</strong></center>
 
 ## Health2D
 
