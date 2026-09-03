@@ -2,11 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bocnxvnsmgohw" path="res://test.gd" id="1_6uqi0"]
 [ext_resource type="Script" uid="uid://cfdwhqfwsap3" path="res://SquashAnimation/SquashAnimation.gd" id="2_8uh7m"]
+[ext_resource type="Script" uid="uid://nk568qgpypnb" path="res://InteractiveUI/InteractiveUI.gd" id="2_ehkex"]
 [ext_resource type="Texture2D" uid="uid://chifrp5cj7b0" path="res://InputBuffer/alarm_clock.svg" id="2_vbegm"]
 [ext_resource type="Script" uid="uid://bdn5jgrpa2e5p" path="res://DragAndDrop/DragAndDrop.gd" id="4_ppyta"]
-[ext_resource type="Script" uid="uid://biq5osqhjrwhd" path="res://Health/2D/Health2D.gd" id="5_g14j6"]
-[ext_resource type="Script" uid="uid://bhgpxgxxbhc3u" path="res://Health/3D/Health3D.gd" id="6_vbegm"]
-[ext_resource type="Script" uid="uid://w12k86n1ih6c" path="res://FlipSprite/FlipSprite.gd" id="7_vbegm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
 radius = 15.132746
@@ -67,11 +65,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -26.5
-offset_top = -33.0
-offset_right = 26.5
+offset_left = -67.0
+offset_top = -164.0
+offset_right = -14.0
+offset_bottom = -131.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="InteractiveUI" type="Node" parent="CanvasLayer/Button" unique_id=1215059904]
+script = ExtResource("2_ehkex")
+metadata/_custom_type_script = "uid://nk568qgpypnb"
 
 [node name="Area2D" type="CharacterBody2D" parent="." unique_id=1834589469]
 
@@ -87,6 +90,7 @@ texture = ExtResource("2_vbegm")
 [node name="SquashAnimation" type="Node" parent="Area2D/Sprite2D" unique_id=1937918173 node_paths=PackedStringArray("user")]
 script = ExtResource("2_8uh7m")
 user = NodePath("..")
+enable = true
 metadata/_custom_type_script = "uid://cfdwhqfwsap3"
 
 [node name="DragDropComponent2D" type="Node" parent="Area2D" unique_id=397970689 node_paths=PackedStringArray("user", "drop_sensor")]
@@ -139,18 +143,6 @@ texture = ExtResource("2_vbegm")
 script = ExtResource("2_8uh7m")
 user = NodePath("..")
 metadata/_custom_type_script = "uid://cfdwhqfwsap3"
-
-[node name="Health2D" type="Node" parent="." unique_id=1115519948]
-script = ExtResource("5_g14j6")
-metadata/_custom_type_script = "uid://biq5osqhjrwhd"
-
-[node name="Health3D" type="Node" parent="Health2D" unique_id=2059736354]
-script = ExtResource("6_vbegm")
-metadata/_custom_type_script = "uid://bhgpxgxxbhc3u"
-
-[node name="FlipSprite2D" type="Node" parent="." unique_id=1070636375]
-script = ExtResource("7_vbegm")
-metadata/_custom_type_script = "uid://w12k86n1ih6c"
 
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider2" to="." method="_on_h_slider_2_value_changed"]

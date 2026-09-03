@@ -14,7 +14,9 @@ enum TYPE \
 		## The equation has the form of midpoint + amplitude × 2.0 × sin(time) × cos(time).
 	SINE_AND_COSINE,
 	## The equation has the form of midpoint + amplitude × 2.0 × (|sin(time)|)².
-	BOUNCE
+	BOUNCE,
+	## Uses a custom Curve resource mapped between the Lowest and Max points.
+	CURVE
 	}
 
 ## The [Node2D] or [Control] Node that will use this component [br] [br]
@@ -92,6 +94,7 @@ enum TYPE \
 ## amplitude = (Max Point - Lowest Point) / 2.0 [br] [br]
 ## midpoint = (Max Point + Lowest Point) / 2.0
 @export var x_type: TYPE = TYPE.SINE
+@export var x_curve: Curve
 
 ## Axis Y of animation
 @export_subgroup("Axis Y", "y")
@@ -103,6 +106,7 @@ enum TYPE \
 ## amplitude = (Max Point - Lowest Point) / 2.0 [br] [br]
 ## midpoint = (Max Point + Lowest Point) / 2.0
 @export var y_type: TYPE = TYPE.COSINE
+@export var y_curve: Curve
 
 @export_group("Rotation Limits")
 ## The maximum [member user.rotation] (in degrees).
@@ -149,11 +153,11 @@ func _process(delta: float) -> void:
 			return
 	
 	# Axis X
-	var x_wave: float = get_type(x_type, x_max_point, x_lowest_point, _time_passed)
+	var x_wave: float = get_type(x_type, x_max_point, x_lowest_point, _time_passed, x_curve, duration)
 	user.scale.x = base_scale.x * x_wave
 	
 	# Axis Y
-	var y_wave: float = get_type(y_type, y_max_point, y_lowest_point, _time_passed)
+	var y_wave: float = get_type(y_type, y_max_point, y_lowest_point, _time_passed, y_curve, duration)
 	user.scale.y = base_scale.y * y_wave
 	
 	# Rotation
@@ -163,7 +167,7 @@ func _process(delta: float) -> void:
 	user.rotation = lerp_angle(user.rotation, base_rotation + target_rotation_rad, tilt_speed * delta)
 
 
-func get_type(type: TYPE, max_point: float, lowest_point: float, time_pass: float) -> float:
+func get_type(type: TYPE, max_point: float, lowest_point: float, time_pass: float, curve: Curve = null, anim_duration: float = 1.0) -> float:
 	var amplitude: float = (max_point - lowest_point) / 2.0
 	var midpoint: float = (max_point + lowest_point) / 2.0
 	
@@ -188,6 +192,19 @@ func get_type(type: TYPE, max_point: float, lowest_point: float, time_pass: floa
 			var bounce_wave = pow(abs(sin(time_pass)), 2.0)
 			# We map this 0 to 1 wave to your lowest and max points
 			return lowest_point + (max_point - lowest_point) * bounce_wave
+		
+		TYPE.CURVE:
+			if not curve:
+				return midpoint
+			
+			# Wrap the time to a 0.0 -> 1.0 scale so the curve reads it correctly
+			var normalized_time: float = fmod(time_pass, anim_duration) / anim_duration
+			
+			# Sample the curve (which returns a value from 0.0 to 1.0)
+			var curve_value: float = curve.sample(normalized_time)
+			
+			# Map that 0.0-1.0 value directly to your lowest and max points
+			return lowest_point + ((max_point - lowest_point) * curve_value)
 		
 	return midpoint
 

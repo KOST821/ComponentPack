@@ -7,20 +7,20 @@
 - ![drag_and_drop](/DragAndDrop/chess_pawn.svg) [Drag and Drop](#drag-and-drop-)
 
 - [Health](#health--)
-    * ![heart2d](/Health/2D/heart.svg) [Health2D](#health2d-)
-    * ![heart3d](/Health/3D/heart.svg) [Health3D](#health3d-)
+	* ![heart2d](/Health/2D/heart.svg) [Health2D](#health2d-)
+	* ![heart3d](/Health/3D/heart.svg) [Health3D](#health3d-)
 
 - ![scene_spawner](/SceneSpawner/file_plus.svg) [SceneSpawner](#scenespawner-)
 
 - [Damage System](#damage-system----)
-    * ![hitbox2d](/HitAndHurtBox/2D/HitBox/swords.svg) ![hitbox3d](/HitAndHurtBox/3D/HitBox/swords.svg) [Hitboxes](#hitboxes--)
-    * ![hurtbox2d](/HitAndHurtBox/2D/HurtBox/shield.svg) ![hurtbox3d](/HitAndHurtBox/3D/HurtBox/shield.svg) [Hurtboxes](#hurtboxes--)
+	* ![hitbox2d](/HitAndHurtBox/2D/HitBox/swords.svg) ![hitbox3d](/HitAndHurtBox/3D/HitBox/swords.svg) [Hitboxes](#hitboxes--)
+	* ![hurtbox2d](/HitAndHurtBox/2D/HurtBox/shield.svg) ![hurtbox3d](/HitAndHurtBox/3D/HurtBox/shield.svg) [Hurtboxes](#hurtboxes--)
 
 - ![input_buffer_icon](/InputBuffer/alarm_clock.svg) [InputBuffer](#inputbuffer-)
 
 - [FiniteStateMachine](#finitestatemachine)
-    * ![fsm_nb_icon](/FiniteStateMachine/Classic/cog.svg) ![state_icon_nb](/FiniteStateMachine/Classic/box.svg) [FiniteStateMachine (Node-Based)](#finitestatemachine-node-based)
-    * ![fsm_ub_icon](/FiniteStateMachine/UserBased/bot.svg) [FiniteStateMachine (User-Based)](#finitestatemachine-user-based)
+	* ![fsm_nb_icon](/FiniteStateMachine/Classic/cog.svg) ![state_icon_nb](/FiniteStateMachine/Classic/box.svg) [FiniteStateMachine (Node-Based)](#finitestatemachine-node-based)
+	* ![fsm_ub_icon](/FiniteStateMachine/UserBased/bot.svg) [FiniteStateMachine (User-Based)](#finitestatemachine-user-based)
 
 - ![squash_anim_icon](/SquashAnimation/gobot.svg) [SquashAnimation](#squashanimation)
 
@@ -42,15 +42,15 @@ extends CharacterBody2D
 const SPEED: float = 500.0
 
 func _physics_process(delta: float) -> void:
-    # Get the input direction and handle the movement.
-    var direction := Input.get_axis("ui_left", "ui_right")
+	# Get the input direction and handle the movement.
+	var direction := Input.get_axis("ui_left", "ui_right")
 
-    if direction:
-        velocity.x = direction * SPEED
-    else:
-        velocity.x = move_toward(velocity.x, 0, SPEED)
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-    move_and_slide()
+	move_and_slide()
 ```
 
 Attaching a **Gravity** Node to it, and adjusting in the editor the <code> gravity</code> variable to your liking, if you add this line of code: <br>
@@ -69,19 +69,19 @@ extends CharacterBody2D
 const SPEED:float = 500.0
 
 func _physics_process(delta:float) -> void:
-    # Get the input direction and handle the movement.
-    var direction := Input.get_axis("ui_left", "ui_right")
+	# Get the input direction and handle the movement.
+	var direction := Input.get_axis("ui_left", "ui_right")
 
-    if direction:
-        velocity.x = direction * SPEED
-    else:
-        velocity.x = move_toward(velocity.x, 0, SPEED)
-        
-    # CRITICAL: Here we apply the gravity to the player!
-    if not is_on_floor():
-        velocity.y = gravity.get_gravity(delta, velocity.y)
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+	# CRITICAL: Here we apply the gravity to the player!
+	if not is_on_floor():
+		velocity.y = gravity.get_gravity(delta, velocity.y)
 
-    move_and_slide()
+	move_and_slide()
 ```
 
 ## Advanced Settings
@@ -94,14 +94,14 @@ In the example to prevent your character from falling infinitely fast, provide a
 
 ```GDScript
 if not is_on_floor():
-    velocity.y = gravity.get_gravity(delta, velocity.y)
+	velocity.y = gravity.get_gravity(delta, velocity.y)
 ```
 
 And make it like this:
 
 ```GDScript
 if not is_on_floor():
-    velocity.y = gravity.get_gravity(delta, velocity.y, 450.0)
+	velocity.y = gravity.get_gravity(delta, velocity.y, 450.0)
 ```
 
 ### Descending Gravity Factor (Fall Multiplier)
@@ -110,7 +110,7 @@ To make jumps feel less "floaty", you can apply a multiplier to the gravity only
 
 ```GDScript
 if not is_on_floor():
-    velocity.y = gravity.get_gravity(delta, velocity.y, 450.0, 1.5)
+	velocity.y = gravity.get_gravity(delta, velocity.y, 450.0, 1.5)
 ```
 
 Keep in mind that if you want to have **descending gravity factor** but not a [**maximum falling speed**](#max-falling-speed-terminal-velocity) you just add <code> 0.0 </code> to the 3rd value (**maximum falling speed**).
@@ -126,13 +126,13 @@ This component is used to add a drag and drop feature to an [*CollisionObject2D*
 If we had a [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) with no scripts, and as children a [**CollisionShape2D**](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) and a **drag and drop** when you "grab" the [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) inside the [CollisionShape2D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) you can move it! To work you must look at those 6 things:
 
 <ol>
-    <li> User </li>
-    <li> Drop Sensor </li>
-    <li> Behavior </li>
-    <li> Drop Zone Group </li>
-    <li> Input Start Action </li>
-    <li> Input End Action </li>
-    <li> Tween Trans </li>
+	<li> User </li>
+	<li> Drop Sensor </li>
+	<li> Behavior </li>
+	<li> Drop Zone Group </li>
+	<li> Input Start Action </li>
+	<li> Input End Action </li>
+	<li> Tween Trans </li>
 </ol>
 
 When all of these are filled you can use the **drag and drop**!
@@ -250,6 +250,9 @@ To set a **Health2D** you need to add 5 variables:
 #### 1. User
 
 User is the one using the component, the one that health is related to.
+
+> [!TIP]
+> The [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control) nodes are counted as 2D nodes.
 
 > [!NOTE]
 > If empty the parent will be added. If parent is not a valid type there will be an <font color="red"> ***Error***</font>
@@ -449,7 +452,7 @@ As you can see in the first line in this function we remove the damage:
 ```GDScript 
 func take_damage(amount:float)->void:
 	health -= amount
-    ...
+	...
 ```
 
 So in *Method* we just copy and paste the name, DO NOT ADD PARENTHESES! If your player script has that kind of function you just add this node and name to the correct variable spots.
@@ -537,7 +540,7 @@ You can always change the value through code by writing:
 @export var buffer:InputBuffer # Get component instance
 
 func change_buffer_time() -> void:
-    buffer.buffer_time = amount # amount is the time of buffer you want to give, you can always write the number e.g. 0.23.
+	buffer.buffer_time = amount # amount is the time of buffer you want to give, you can always write the number e.g. 0.23.
 ```
 
 # FiniteStateMachine
@@ -643,7 +646,7 @@ func _transition()->void:
 	
 	# Check if we are moving.
 	if direction != Vector2.ZERO:
-        switch_state.emit(states_that_can_change[&"Move"]) # It must match exactly what you entered into the Dictionary.
+		switch_state.emit(states_that_can_change[&"Move"]) # It must match exactly what you entered into the Dictionary.
 ```
 
 ## FiniteStateMachine User based
@@ -801,27 +804,30 @@ Both the X and Y axes share identical configuration options to independently con
 |Lowest Point| 0.9 | The minimum scale multiplier during the *animation* cycle.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
 |Max Point| 1.1| The maximum scale multiplier during the *animation* cycle.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
 |Type| `SINE` / `COSINE`| The mathematical wave function used to drive the scale.|[enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string)|
+|Curve|`null`|The visual Curve resource used if Type is set to *CURVE*|[Curve](https://docs.godotengine.org/en/stable/classes/class_curve.html#curve)|
 
 #### Wave Types
 
 You can assign different wave equations to the axes to create distinct bouncing or breathing rhythms:
 - SINE: Smooth, continuous wave.
 
-    $midpoint + amplitude \cdot \sin(time)$
+	$midpoint + amplitude \cdot \sin(time)$
 
 - COSINE: Smooth, continuous wave, offset from Sine.
 
-    $midpoint + amplitude \cdot \cos(time)$
+	$midpoint + amplitude \cdot \cos(time)$
 
 - TANGENT: Sharp, snapping wave. Clamped between -1.0 and 1.0.
 
-    $midpoint + amplitude \cdot \tan(time)$
+	$midpoint + amplitude \cdot \tan(time)$
 
 - SINE AND COSINE: A complex, varied wave.
-    $midpoint + 2.0 \times amplitude \cdot \sin(time) \cdot \cos(time)$  
+	$midpoint + 2.0 \times amplitude \cdot \sin(time) \cdot \cos(time)$  
 
 - BOUNCE: A specialized arc that creates a sharp impact at the bottom and "hang time" at the top.
-    $Lowest Point + 2.0 \times amplitude \cdot (\vert{}\sin(time)\vert{})^2$  
+	$Lowest Point + 2.0 \times amplitude \cdot (\vert{}\sin(time)\vert{})^2$  
+
+- CURVE: Samples your custom Curve resource over the animation's Duration. Map your curve's X and Y limits from 0.0 to 1.0; the component automatically scales the output to your defined Lowest Point and Max Point.
 
 #### Rotation Limits (Wobble)
 
@@ -839,7 +845,7 @@ To enable the component, starting the animation from time 0.0. use the function:
 @export var squash_anim: SquashAnimation # Get the instance.
 
 func _on_player_landed() -> void: # A random function in the script you want to call.
-    squash_anim.play() # Plays animation.
+	squash_anim.play() # Plays animation.
 ``` 
 
 Ideal for triggering from other scripts (e.g., calling it when a player lands a jump).
@@ -850,7 +856,7 @@ To disable the component and immediately reset the user node to its original bas
 @export var squash_anim: SquashAnimation # Get the instance.
 
 func cancel_animation() -> void: # A random function in the script you want to call.
-    squash_anim.stop() # Stops animation.
+	squash_anim.stop() # Stops animation.
 ``` 
 
 # Glossary

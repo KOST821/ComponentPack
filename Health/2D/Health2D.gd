@@ -14,7 +14,7 @@ signal died
 signal health_changed(current:float,max:float)
 
 ## Who is using the component.
-@export var user:Node2D
+@export var user:Node
 
 ## Max Health.
 @export var max_health:float
@@ -28,8 +28,12 @@ signal health_changed(current:float,max:float)
 var health:float = max_health
 
 func _ready() -> void:
-	if user == null:
+	if user == null or user is not Node2D or user is not Control:
 		user = get_parent()
+		if user is not Node2D or user is not Control:
+			user = null
+			push_error('You forgot to place the "user" to the health component (',self,'). Automatically added the parent. Parent was not a valid type, KOSSAINIS')
+			return
 		push_warning('You forgot to place the "user" to the health component (',self,'). Automatically added the parent (',user,'), KOSSAINIS')
 	
 	if starting_health_per == 100.0:
