@@ -1,22 +1,22 @@
 extends RefCounted
-class_name UserBasedState
+class_name StateUB
 
 var user: Node
 
 
-func enter() -> void:
+func _enter_state() -> void:
 	pass
 
 
-func exit() -> void:
+func _exit_state() -> void:
 	pass
 
 
-func update(_delta: float) -> void:
+func _update(_delta: float) -> void:
 	pass
 
 
-func physics_update(_delta: float) -> void:
+func _physics_update(_delta: float) -> void:
 	pass
 
 

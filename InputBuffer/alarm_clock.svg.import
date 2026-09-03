@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f4e0x2dt70fd"
-path="res://.godot/imported/lightning_in_clockwise_arrow.svg-b9fa39e18c3686d760cf82d049d7527a.ctex"
+uid="uid://chifrp5cj7b0"
+path="res://.godot/imported/alarm_clock.svg-51ea0a4b59abc06dcd9de4a212117299.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://InputBuffer/lightning_in_clockwise_arrow.svg"
-dest_files=["res://.godot/imported/lightning_in_clockwise_arrow.svg-b9fa39e18c3686d760cf82d049d7527a.ctex"]
+source_file="res://InputBuffer/alarm_clock.svg"
+dest_files=["res://.godot/imported/alarm_clock.svg-51ea0a4b59abc06dcd9de4a212117299.ctex"]
 
 [params]
 

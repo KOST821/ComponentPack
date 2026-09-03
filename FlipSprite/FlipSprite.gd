@@ -3,8 +3,16 @@
 extends Node
 class_name FlipSprite2D
 
-enum H_DIRECTION{LEFT, RIGHT}
-enum V_DIRECTION{UP, DOWN}
+enum H_DIRECTION\
+{LEFT,## The default face direction of the sprite is [b]LEFT[/b]
+## The default face direction of the sprite is [b]RIGHT[/b]
+RIGHT}
+
+enum V_DIRECTION\
+{UP,## The default face direction of the sprite is [b]UP[/b]
+## The default face direction of the sprite is [b]DOWN[/b]
+DOWN}
+
 ## Flips a [Sprite2D] or an [AnimatedSprite2D] towards the direction of a [Vector2] position.
 
 ## The Sprite node that will be flipped.
@@ -20,9 +28,9 @@ enum V_DIRECTION{UP, DOWN}
 @export var flip_h: bool = true
 ## If [code]true[/code], the [member FlipSprite2D.sprite] can be flipped vertically.
 @export var flip_v: bool = false
-## The default Horizontal face diraction
+## The default Horizontal face direction.
 @export var default_h_direction:H_DIRECTION = H_DIRECTION.RIGHT
-## The default Vertical face diraction
+## The default Vertical face direction.
 @export var default_v_direction:V_DIRECTION = V_DIRECTION.DOWN
 
 func _get_configuration_warnings() -> PackedStringArray:

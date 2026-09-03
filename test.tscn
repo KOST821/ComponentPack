@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://i3xe63njuc87"]
 
 [ext_resource type="Script" uid="uid://bocnxvnsmgohw" path="res://test.gd" id="1_6uqi0"]
-[ext_resource type="Texture2D" uid="uid://f4e0x2dt70fd" path="res://InputBuffer/lightning_in_clockwise_arrow.svg" id="1_8uh7m"]
 [ext_resource type="Script" uid="uid://cfdwhqfwsap3" path="res://SquashAnimation/SquashAnimation.gd" id="2_8uh7m"]
+[ext_resource type="Texture2D" uid="uid://chifrp5cj7b0" path="res://InputBuffer/alarm_clock.svg" id="2_vbegm"]
 [ext_resource type="Script" uid="uid://bdn5jgrpa2e5p" path="res://DragAndDrop/DragAndDrop.gd" id="4_ppyta"]
 [ext_resource type="Script" uid="uid://biq5osqhjrwhd" path="res://Health/2D/Health2D.gd" id="5_g14j6"]
 [ext_resource type="Script" uid="uid://bhgpxgxxbhc3u" path="res://Health/3D/Health3D.gd" id="6_vbegm"]
+[ext_resource type="Script" uid="uid://w12k86n1ih6c" path="res://FlipSprite/FlipSprite.gd" id="7_vbegm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
 radius = 15.132746
@@ -81,7 +82,7 @@ shape = SubResource("CircleShape2D_5p6vy")
 texture_filter = 3
 rotation = 1.0471976
 scale = Vector2(0.9942427, 1.008426)
-texture = ExtResource("1_8uh7m")
+texture = ExtResource("2_vbegm")
 
 [node name="SquashAnimation" type="Node" parent="Area2D/Sprite2D" unique_id=1937918173 node_paths=PackedStringArray("user")]
 script = ExtResource("2_8uh7m")
@@ -116,7 +117,7 @@ shape = SubResource("CircleShape2D_5p6vy")
 [node name="Sprite2D" type="Sprite2D" parent="Area2D2" unique_id=1114188117]
 texture_filter = 3
 scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("1_8uh7m")
+texture = ExtResource("2_vbegm")
 
 [node name="SquashAnimation" type="Node" parent="Area2D2/Sprite2D" unique_id=1467934007 node_paths=PackedStringArray("user")]
 script = ExtResource("2_8uh7m")
@@ -132,7 +133,7 @@ shape = SubResource("CircleShape2D_5p6vy")
 [node name="Sprite2D" type="Sprite2D" parent="Area2D3" unique_id=146428508]
 texture_filter = 3
 scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("1_8uh7m")
+texture = ExtResource("2_vbegm")
 
 [node name="SquashAnimation" type="Node" parent="Area2D3/Sprite2D" unique_id=1104780189 node_paths=PackedStringArray("user")]
 script = ExtResource("2_8uh7m")
@@ -146,6 +147,10 @@ metadata/_custom_type_script = "uid://biq5osqhjrwhd"
 [node name="Health3D" type="Node" parent="Health2D" unique_id=2059736354]
 script = ExtResource("6_vbegm")
 metadata/_custom_type_script = "uid://bhgpxgxxbhc3u"
+
+[node name="FlipSprite2D" type="Node" parent="." unique_id=1070636375]
+script = ExtResource("7_vbegm")
+metadata/_custom_type_script = "uid://w12k86n1ih6c"
 
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider2" to="." method="_on_h_slider_2_value_changed"]

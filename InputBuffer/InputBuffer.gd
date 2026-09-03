@@ -1,8 +1,8 @@
-@icon("lightning_in_clockwise_arrow.svg")
+@icon("alarm_clock.svg")
 extends Node
 class_name InputBuffer
 
-## The name of the jump action. If empty the placeholder will be added.
+## The name of the buffered action. If empty the placeholder will be added.
 @export_placeholder("jump") var action_name: String
 ## The buffer time.
 @export var buffer_time: float = 0.15

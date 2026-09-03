@@ -1,4 +1,6 @@
-# How to use
+# Component Asset Pack Documentation
+
+## Contents
 
 - ![gravity](/Gravity/gravity.svg) [Gravity](#gravity-)
 - ![drag_and_drop](/DragAndDrop/chess_pawn.svg) [Drag and Drop](#drag-and-drop-)
@@ -9,6 +11,10 @@
 - [Damage System](#damage-system----)
     * ![hitbox2d](/HitAndHurtBox/2D/HitBox/swords.svg) ![hitbox3d](/HitAndHurtBox/3D/HitBox/swords.svg) [Hitboxes](#hitboxes--)
     * ![hurtbox2d](/HitAndHurtBox/2D/HurtBox/shield.svg) ![hurtbox3d](/HitAndHurtBox/3D/HurtBox/shield.svg) [Hurtboxes](#hurtboxes--)
+- ![input_buffer_icon](/InputBuffer/alarm_clock.svg) [InputBuffer](#inputbuffer-)
+- [FiniteStateMachine](#finitestatemachine)
+    * ![fsm_nb_icon](/FiniteStateMachine/Classic/cog.svg) ![state_icon_nb](/FiniteStateMachine/Classic/box.svg) [FiniteStateMachine (Node-Based)](#finitestatemachine-node-based)
+    * ![fsm_ub_icon](/FiniteStateMachine/UserBased/bot.svg) [FiniteStateMachine (User-Based)](#finitestatemachine-user-based)
 - [Glossary](#glossary)
 
 <br> <br>
@@ -124,7 +130,11 @@ When all of these are filled you can use the **drag and drop**!
 
 ### 1. User
 
-The Node who uses the component, must be a [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html) to receive mouse events. If empty the parent will be placed, assuming the parent is [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html). If empty at last, the game will give you an <font color="red"> ***Error***</font>.
+The Node who uses the component, must be a [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html) to receive mouse events.
+
+> [!NOTE]
+> If empty the parent will be placed, assuming the parent is [CollisionObject2D](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html). If empty at last, the game will give you an <font color="red"> ***Error***</font>.
+
 
 ### 2. Drop Sensor
 
@@ -156,23 +166,36 @@ Snaps to a specific [zone](#zones), but returns back to start if missed.
 
 ### 4. Drop Zone Group
 
-The name of the **group** that [zones](#zones) will be. If empty the placeholder will be placed.
+The name of the **group** that [zones](#zones) will be.
+
+> [!NOTE]
+> If empty the placeholder will be placed.
 
 ### 5. Input Start Action
 
-The action name that will be used to start draging. If empty the placeholder will be placed. For example:
+The action name that will be used to start draging.
+
+> [!NOTE]
+> If empty the placeholder will be placed.
+
+**For example:**
 
 You go to ***Project → Project Settings → Input Map*** here you create an action and name it, lets go for *start_drag* with left mouse click. Now you have an action named *start_drag* and the left click as the action!
 
-now you just go to ***Input Start Action*** and add the name of the action in the editor, so **start_drag**
+now you just go to ***Input Start Action*** and add the name of the action in the editor, so **start_drag**.
 
 ### 6. Input End Action
 
-The action name that will be used to cancel draging. If empty the placeholder will be placed. For example:
+The action name that will be used to cancel draging.
+
+> [!NOTE]
+> If empty the placeholder will be placed.
+
+**For example:**
 
 You go to ***Project → Project Settings → Input Map*** here you create an action and name it, lets go for *cancel_drag* with right mouse click. Now you have an action named *cancel_drag* and the right click as the action!
 
-now you just go to ***Input End Action*** and add the name of the action in the editor, so **cancel_drag**
+now you just go to ***Input End Action*** and add the name of the action in the editor, so **cancel_drag**.
 
 ### 7. Tween Trans
 
@@ -218,6 +241,9 @@ To set a **Health2D** you need to add 5 variables:
 #### 1. User
 
 User is the one using the component, the one that health is related to.
+
+> [!NOTE]
+> If empty the parent will be added. If parent is not a valid type there will be an <font color="red"> ***Error***</font>
 
 #### 2. Max Health
 
@@ -389,7 +415,10 @@ Who is tracking the health.
 
 #### Method
 
-The name of the method that reduces the health. If empty it keeps the placeholder.
+The name of the method that reduces the health.
+
+> [!NOTE]
+> If empty it keeps the placeholder.
 
 #### EXAMPLE
 
@@ -415,6 +444,317 @@ func take_damage(amount:float)->void:
 ```
 
 So in *Method* we just copy and paste the name, DO NOT ADD PARENTHESES! If your player script has that kind of function you just add this node and name to the correct variable spots.
+
+# FlipSprite2D  <img width="24" height="24" alt="flip_sprite2d" src="/FlipSprite/mirror_xy.svg">
+
+The **FlipSprite2D** is responsible for flipping the sprite.
+
+## Setup Properties
+
+The variables you have to modify for it to work are 5:
+
+1. [Sprite](#sprite)
+2. [Flip H](#flip-h)
+3. [Flip V](#flip-v)
+4. [Default H Direction](#default-h-direction)
+5. [Default V Direction](#default-v-direction)
+
+### Sprite
+
+Flips a [Sprite2D](https://docs.godotengine.org/en/stable/classes/class_sprite2d.html#sprite2d) or an [AnimatedSprite2D](https://docs.godotengine.org/en/stable/classes/class_animatedsprite2d.html#class-animatedsprite2d) towards the direction of a [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html#vector2) position.
+
+The Sprite node that will be flipped.
+
+> [!NOTE]
+>It is defined as a [Node2D](https://docs.godotengine.org/en/stable/classes/class_node2d.html#node2d) but it needs to be either a [Sprite2D](https://docs.godotengine.org/en/stable/classes/class_sprite2d.html#sprite2d) or an [AnimatedSprite2D](https://docs.godotengine.org/en/stable/classes/class_animatedsprite2d.html#class-animatedsprite2d.)
+
+### Flip H
+
+If <code>true</code>, the [Sprite](#sprite) can be flipped horizontally.
+
+### Flip V
+
+If <code>true</code>, the [Sprite](#sprite) can be flipped vertically.
+
+### Default H Direction
+
+The default Horizontal face direction.
+
+### Default V Direction
+
+The default Vertical face direction.
+
+## Basic Use
+
+To use the component, attach it as a child of your entity, assign your [Sprite](#sprite) node in the inspector, and ensure the *Default Directions* match the artwork's original orientation.
+
+Call the <code>flip_sprite_towards()</code> method dynamically in your movement script. For example, to make a character always face the mouse cursor:
+
+```GDScript
+@export var flipper: FlipSprite2D # Get component instance
+
+func _process(delta: float) -> void:
+    flipper.flip_sprite_towards(get_global_mouse_position())
+```
+
+# InputBuffer <img width="24" height="24" alt="buffered_icon" src="/InputBuffer/alarm_clock.svg">
+
+**InputBuffer** is holding a timer to buffer an action.
+
+## Setup Properties
+
+To work you *just* need to setup the variables. There are only 2 variables to be set:
+
+1. [Action Name](#action-name)
+2. [Buffer time](#buffer-time)
+
+### Action Name
+
+After you create the action you want to buffer, by going to ***Project → Project Settings → Input Map***, you take the action's name and add it in this variable.
+
+> [!NOTE]
+> If empty the placeholder will be added.
+
+### Buffer time
+
+The time where this action will be buffered.
+
+> [!TIP]
+> This time is usally lower than <code>0.5</code>.
+
+You can always change the value through code by writing:
+
+```GDScript
+@export var buffer:InputBuffer # Get component instance
+
+func change_buffer_time() -> void:
+    buffer.buffer_time = amount # amount is the time of buffer you want to give, you can always write the number e.g. 0.23.
+```
+
+# FiniteStateMachine
+
+This asset pack is providing you with 2 **FiniteStateMachines**, one is [Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node) based and one is [User](#user-1) based. A **FiniteStateMachine** is used to keep track of the current state of a [Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node). A **FiniteStateMachine** is built by 2 nodes, the State node and the FiniteStateMachineManager node.
+
+## FiniteStateMachine Node based
+
+### FiniteStateMachineManager <img width="24" height="24" alt="finite_state_machinenb" src="/FiniteStateMachine/Classic/cog.svg">
+
+It keeps track of the current [State](#state-). When a [State](#state-) is active it runs code while a [State](#state-) is inactive the code is not running. In the current Manager you only need to add the [User](#user) and the [Initial State](#initial-state).
+
+#### User
+
+Whose [States](#state-) this **Manager** is tracking.
+
+> [!NOTE]
+> If empty it gets the parent.
+
+#### Initial State
+
+The [State](#state-) the [User](#user) is starting from.
+
+### State <img width="24" height="24" alt="finite_state_machinenb_state" src="/FiniteStateMachine/Classic/box.svg">
+
+In states you make the logic you want to run, when the [User](#user) is in this **State**. Each **State** has a spesific way of work.
+
+#### Setup Properties
+
+When you add a **State** node into the [SceneTree](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#class-scenetree) first you *extend the script* and then you add to the "States That Can Change" variable [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary) a [String](https://docs.godotengine.org/en/stable/classes/class_string.html#string) and an other State Node.
+
+#### How to code a State
+
+Starting you create a [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) that <code>extends StateNB # (NB) = Node Based </code> and you give it a <code>class_name</code>.
+
+If you want to run a code when you enter a state you do not use <code>func _ready() -> void: pass</code> function but you use the:
+
+```GDScript
+func _enter_state()->void:
+	pass # Add your _ready logic here.
+```
+
+Same and when you leave a state, you write:
+
+```GDScript
+func _exit_state()->void:
+	pass # Add your leaving logic here.
+```
+
+Functions like <code>_process</code> or <code>_physics_process</code> are replaced with:
+
+```GDScript
+func _update(_delta:float)->void:
+	pass # Add your _process logic here.
+
+func _physics_update(_delta: float) -> void:
+	pass # Add your _physics_process logic here.
+```
+
+For inputs you write:
+
+```GDScript
+func unhandled_input(_event:InputEvent)->void:
+	pass # Add your input logic here.
+```
+
+*Transitioning* between **States** is easy, you write just:
+
+```GDScript
+func _transition()->void:
+	pass # Add your transition  logic here.
+```
+
+***Example:***
+
+If you have a tree like this:
+
+![player_tree_icon](/Examples/tree_NB.png)
+
+Let's say we keep track of Player's States and we want to be Idle first then, we setup the *FiniteStateMachineNB* like this:
+
+![cog_icon](/Examples/manager_NB.png)
+
+Now to the "Idle" State we *extend the script* and we want to be able to run if we are in Idle state, so we connect the move to the [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary).
+
+![state_icon](/Examples/State_NB.png)
+
+So now is time to write an *Idle.gd*!
+
+```GDScript
+extends StateNB
+class_name IdleState
+
+func _enter_state()->void:
+	user.velocity = Vector2.ZERO
+
+func _physics_update(_delta: float) -> void:
+	# Check for transitions!
+	_transition()
+
+func _transition()->void:
+	var direction:Vector2 = user.get_axis("ui_left","ui_right")
+	
+	# Check if we are moving.
+	if direction != Vector2.ZERO:
+        switch_state.emit(states_that_can_change[&"Move"]) # It must match exactly what you entered into the Dictionary.
+```
+
+## FiniteStateMachine User based
+
+### FiniteStateMachineManager <img width="24" height="24" alt="finite_state_machinenb_state" src="/FiniteStateMachine/UserBased/bot.svg">
+
+Unlike the [Node-based FSM](#finitestatemachine-node-based), the **User-Based FSM** dynamically creates and destroys states in memory using [<code>RefCounted</code>](https://docs.godotengine.org/en/latest/classes/class_refcounted.html#) objects. [States](#state-1) are never added to the [SceneTree](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#class-scenetree), making this approach extremely lightweight. The user (e.g., the Player script) dictates when state transitions occur.
+
+#### User
+
+Whose [States](#state-1) this **Manager** is tracking.
+
+> [!NOTE]
+> If empty it gets the parent.
+
+### State
+
+In states you make the logic you want to run, when the [User](#user) is in this **State**. Each **State** has a spesific way of work. These **States** are never added to the [SceneTree](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#class-scenetree).
+
+#### How to code a State
+
+Starting you create a [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) that <code>extends StateUB # (UB) = User Based </code> and you give it a <code>class_name</code>.
+
+If you want to run a code when you enter a state you do not use <code>func _ready() -> void: pass</code> function but you use the:
+
+```GDScript
+func _enter_state()->void:
+	pass # Add your _ready logic here.
+```
+
+Same and when you leave a state, you write:
+
+```GDScript
+func _exit_state()->void:
+	pass # Add your leaving logic here.
+```
+
+Functions like <code>_process</code> or <code>_physics_process</code> are replaced with:
+
+```GDScript
+func _update(_delta:float)->void:
+	pass # Add your _process logic here.
+
+func _physics_update(_delta: float) -> void:
+	pass # Add your _physics_process logic here.
+```
+
+For inputs you write:
+
+```GDScript
+func unhandled_input(_event:InputEvent)->void:
+	pass # Add your input logic here.
+```
+
+*Transitioning* between **States** is happening through the user.
+
+***Example:***
+
+If you have a tree like this:
+
+![player_tree_icon](/Examples/tree_UB.png)
+
+Let's say we keep track of Box's States then, we setup the *FiniteStateMachineUB* like this:
+
+![bot_icon](/Examples/machine_UB.png)
+
+Now to the "Box" we *create a script*.
+
+![create_script_icon](/Examples/create_sqp_UB.png)
+
+***Let's create a small machine!***
+
+To start let's create a *Idle.gd* that <code>extends StateUB</code>.
+
+```GDScript
+extends StateUB
+class_name IdleState
+
+func _enter_state() -> void:
+	user.velocity = Vector3.ZERO
+```
+
+Now let's create the *Move.gd* <code>extends StateUB</code>.
+
+```GDScript
+extends StateUB
+class_name MoveState
+
+
+const SPEED = 5.0
+
+# Handle movement
+func _physics_update(delta: float) -> void:
+	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction := (user.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		user.velocity.x = direction.x * SPEED
+		user.velocity.z = direction.z * SPEED
+	else:
+		user.velocity.x = move_toward(user.velocity.x, 0, SPEED)
+		user.velocity.z = move_toward(user.velocity.z, 0, SPEED)
+
+	user.move_and_slide()
+```
+
+So now is time to write an *Player3D.gd*!
+
+```GDScript
+extends CharacterBody3D
+
+@export var fsm: FiniteStateMachineUB # The instance of the Machine.
+
+func _physics_process(delta: float) -> void:
+	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if input_dir:
+        # There is a movement. So we need to go to MoveState
+        fsm.change_state(MoveState) # MoveState is the class_name of the Move.gd!
+    else:
+        fsm.change_state(IdleState) # IdleState is the class_name of the Idle.gd!
+```
 
 # Glossary
 
