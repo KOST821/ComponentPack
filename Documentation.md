@@ -3,18 +3,27 @@
 ## Contents
 
 - ![gravity](/Gravity/gravity.svg) [Gravity](#gravity-)
+
 - ![drag_and_drop](/DragAndDrop/chess_pawn.svg) [Drag and Drop](#drag-and-drop-)
+
 - [Health](#health--)
     * ![heart2d](/Health/2D/heart.svg) [Health2D](#health2d-)
     * ![heart3d](/Health/3D/heart.svg) [Health3D](#health3d-)
+
 - ![scene_spawner](/SceneSpawner/file_plus.svg) [SceneSpawner](#scenespawner-)
+
 - [Damage System](#damage-system----)
     * ![hitbox2d](/HitAndHurtBox/2D/HitBox/swords.svg) ![hitbox3d](/HitAndHurtBox/3D/HitBox/swords.svg) [Hitboxes](#hitboxes--)
     * ![hurtbox2d](/HitAndHurtBox/2D/HurtBox/shield.svg) ![hurtbox3d](/HitAndHurtBox/3D/HurtBox/shield.svg) [Hurtboxes](#hurtboxes--)
+
 - ![input_buffer_icon](/InputBuffer/alarm_clock.svg) [InputBuffer](#inputbuffer-)
+
 - [FiniteStateMachine](#finitestatemachine)
     * ![fsm_nb_icon](/FiniteStateMachine/Classic/cog.svg) ![state_icon_nb](/FiniteStateMachine/Classic/box.svg) [FiniteStateMachine (Node-Based)](#finitestatemachine-node-based)
     * ![fsm_ub_icon](/FiniteStateMachine/UserBased/bot.svg) [FiniteStateMachine (User-Based)](#finitestatemachine-user-based)
+
+- ![squash_anim_icon](/SquashAnimation/gobot.svg) [SquashAnimation](#squashanimation)
+
 - [Glossary](#glossary)
 
 <br> <br>
@@ -755,6 +764,94 @@ func _physics_process(delta: float) -> void:
     else:
         fsm.change_state(IdleState) # IdleState is the class_name of the Idle.gd!
 ```
+
+# SquashAnimation
+
+This component applies a fully customizable, mathematical squash-and-stretch animation to a 2D [Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node). Because it directly overrides the <code>scale</code> and <code>rotation</code> properties of its user every frame, it is highly recommended to apply this component strictly to visual [Nodes](https://docs.godotengine.org/en/stable/classes/class_node.html#node) (like a [Sprite2D](https://docs.godotengine.org/en/stable/classes/class_sprite2d.html#sprite2d) or [TextureRect](https://docs.godotengine.org/en/stable/classes/class_texturerect.html#texturerect)) rather than root physics bodies.
+
+> [!TIP]
+> The [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control) nodes are counted as 2D nodes.
+
+## Setup Properties
+
+### Basic Variables
+
+|Name|Default|Description|Type|
+|:---| :---: |   :---:   |---:|
+|User|`null`|The [Node2D](https://docs.godotengine.org/en/stable/classes/class_node2d.html#node2d) or [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control) node that will be animated. If left empty, it will default to its parent.|[Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node)|
+|Speed| 3.0|How fast the *animation* progresses.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Looping|`true`|If `false`, the *animation* stops and resets after the ***Duration*** is reached.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Duration| 1.0|How long the *animation* lasts if ***Looping*** is disabled. For **infinite** time ***Duration*** must be `-1.0`|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Enable|`false`|Toggles the component on or off. When disabled, the user's transform resets to its base state.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Editor Disable|`true`|Prevents the *animation* from playing continuously inside the Godot editor viewport while you are working.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+
+### Advanced Variables
+
+Deformation Limits (Squash & Stretch)The component calculates the squash/stretch effect using a mathematical midpoint and amplitude based on your limits:
+
+$amplitude = \frac{Max Point - Lowest Point}{2.0}$
+
+$midpoint = \frac{Max Point + Lowest Point}{2.0}$
+
+#### X and Y Axis Properties
+Both the X and Y axes share identical configuration options to independently control horizontal and vertical deformation.
+
+|Name|Default|Description|Type|
+|:---| :---: |   :---:   |---:|
+|Lowest Point| 0.9 | The minimum scale multiplier during the *animation* cycle.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Max Point| 1.1| The maximum scale multiplier during the *animation* cycle.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Type| `SINE` / `COSINE`| The mathematical wave function used to drive the scale.|[enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string)|
+
+#### Wave Types
+
+You can assign different wave equations to the axes to create distinct bouncing or breathing rhythms:
+- SINE: Smooth, continuous wave.
+
+    $midpoint + amplitude \cdot \sin(time)$
+
+- COSINE: Smooth, continuous wave, offset from Sine.
+
+    $midpoint + amplitude \cdot \cos(time)$
+
+- TANGENT: Sharp, snapping wave. Clamped between -1.0 and 1.0.
+
+    $midpoint + amplitude \cdot \tan(time)$
+
+- SINE AND COSINE: A complex, varied wave.
+    $midpoint + 2.0 \times amplitude \cdot \sin(time) \cdot \cos(time)$  
+
+- BOUNCE: A specialized arc that creates a sharp impact at the bottom and "hang time" at the top.
+    $Lowest Point + 2.0 \times amplitude \cdot (\vert{}\sin(time)\vert{})^2$  
+
+#### Rotation Limits (Wobble)
+
+|Name|Default|Description|Type|
+|:---| :---: |   :---:   |---:|
+|Target Tilt Degrees| 15.0 | The maximum rotation angle (in degrees) reached during the *wobble*.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Tilt Speed| 10.0 | How quickly the node interpolates toward the target tilt.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Wobble Frequency| 0.5|The frequency of the sine wave driving the rotation.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+
+## Use
+
+To enable the component, starting the animation from time 0.0. use the function:
+
+```GDScript
+@export var squash_anim: SquashAnimation # Get the instance.
+
+func _on_player_landed() -> void: # A random function in the script you want to call.
+    squash_anim.play() # Plays animation.
+``` 
+
+Ideal for triggering from other scripts (e.g., calling it when a player lands a jump).
+
+To disable the component and immediately reset the user node to its original base scale and rotation. We use:
+
+```GDScript
+@export var squash_anim: SquashAnimation # Get the instance.
+
+func cancel_animation() -> void: # A random function in the script you want to call.
+    squash_anim.stop() # Stops animation.
+``` 
 
 # Glossary
 

@@ -126,11 +126,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func _ready() -> void:
 	if not user:
-		user = get_parent() as Node
-		if user:
+		user = get_parent()
+		if user is Node2D or user is Control:
 			push_warning('You forgot to place the "user" to the SquashAnimation (',self,'). Automatically added the parent (',user,'), KOSSAINIS')
 		else:
-			push_error("You forgot to place the user to the SquashAnimation (",self,"). Automatically tried to add the parent (",get_parent(),") but it wasn't a Node2D or Control Node, KOSSAINIS")
+			user = null
+			push_error("SquashAnimation parent must be a Node2D or Control.")
 			return
 	
 	base_scale = user.scale
@@ -143,7 +144,7 @@ func _process(delta: float) -> void:
 	_time_passed += delta * speed
 	
 	if not looping and not is_previewing:
-		if _time_passed >= duration:
+		if _time_passed >= duration and duration != -1.0:
 			stop()
 			return
 	
