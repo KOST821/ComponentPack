@@ -2,6 +2,12 @@
 extends Node
 class_name DragDropComponent2D
 
+## Emitted when drag is starting.
+signal drag_started
+## Emitted when drag is canceled or an invalid drag completed.
+signal drag_canceled
+## Emitted when drag completed successfully.
+signal drag_completed
 
 enum DropBehavior\
  { 
@@ -81,6 +87,7 @@ func start_dragging() -> void:
 	drag_offset = user.global_position - user.get_global_mouse_position()
 	user.z_index += 100 
 	set_process(true)
+	drag_started.emit()
 
 func _process(_delta: float) -> void:
 	user.global_position = user.get_global_mouse_position() + drag_offset
@@ -97,7 +104,7 @@ func _end_drag_sequence(was_canceled: bool) -> void:
 		
 	match behavior:
 		DropBehavior.DROP_ANYWHERE:
-			pass 
+			drag_completed.emit()
 		DropBehavior.SNAP_TO_ZONE:
 			_try_snap_to_zone(false)
 		DropBehavior.RETURN_IF_NO_ZONE:
@@ -105,18 +112,21 @@ func _end_drag_sequence(was_canceled: bool) -> void:
 
 func _try_snap_to_zone(return_on_fail: bool) -> void:
 	if not drop_sensor:
-		if return_on_fail: _return_to_start()
+		if return_on_fail:
+			_return_to_start()
 		return
 		
 	var overlapping = drop_sensor.get_overlapping_areas()
 	for area in overlapping:
 		if area.is_in_group(drop_zone_group):
 			user.global_position = area.global_position
+			drag_completed.emit()
 			return 
 			
 	if return_on_fail:
 		_return_to_start()
 
 func _return_to_start() -> void:
+	drag_canceled.emit()
 	var tween = get_tree().create_tween()
 	tween.tween_property(user, "global_position", start_position, 0.2).set_trans(tween_trans)

@@ -22,7 +22,9 @@
 	* ![fsm_nb_icon](/FiniteStateMachine/Classic/cog.svg) ![state_icon_nb](/FiniteStateMachine/Classic/box.svg) [FiniteStateMachine (Node-Based)](#finitestatemachine-node-based)
 	* ![fsm_ub_icon](/FiniteStateMachine/UserBased/bot.svg) [FiniteStateMachine (User-Based)](#finitestatemachine-user-based)
 
-- ![squash_anim_icon](/SquashAnimation/gobot.svg) [SquashAnimation](#squashanimation)
+- ![squash_anim_icon](/SquashAnimation/gobot.svg) [SquashAnimation](#squashanimation-)
+
+- ![interactive_ui_icon](/InteractiveUI/rotary_dial.svg) [InteractiveUI](#interactiveui-)
 
 - [Glossary](#glossary)
 
@@ -34,7 +36,7 @@ This component adds gravity to a Node.
 
 ## Basic Use
 
-If we have a *[CharacterBody2D](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html)* with this script: <br>
+If we have a *[CharacterBody2D](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html)* with this [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script): <br>
 
 ```GDScript
 extends CharacterBody2D
@@ -121,9 +123,9 @@ Keep in mind that if you want to have **descending gravity factor** but not a [*
 
 This component is used to add a drag and drop feature to an [*CollisionObject2D*](https://docs.godotengine.org/en/stable/classes/class_collisionobject2d.html).
 
-## Use
+## Setup Properties
 
-If we had a [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) with no scripts, and as children a [**CollisionShape2D**](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) and a **drag and drop** when you "grab" the [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) inside the [CollisionShape2D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) you can move it! To work you must look at those 6 things:
+If we had a [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) with no [Scripts](https://docs.godotengine.org/en/stable/classes/class_script.html#script), and as children a [**CollisionShape2D**](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) and a **drag and drop** when you "grab" the [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) inside the [CollisionShape2D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) you can move it! To work you must look at those 6 things:
 
 <ol>
 	<li> User </li>
@@ -210,6 +212,14 @@ now you just go to ***Input End Action*** and add the name of the action in the 
 
 The trans type of the tween animation that will be played when drag is **canceled** or **invalid**.
 
+### Signals
+
+***drag_started***: Emitted when drag is starting.
+
+***drag_canceled***: Emitted when drag is canceled or an invalid drag completed.
+
+***drag_completed***: Emitted when drag completed successfully.
+
 ## Zones
 
 Zone is an [*Area2D*](https://docs.godotengine.org/en/stable/classes/class_area2d.html) Node. For an [*Area2D*](https://docs.godotengine.org/en/stable/classes/class_area2d.html) to be a zone we need to do something first! In the inspector you go to **Groups** tab and add a new group, you can amke it global or keep it scene based doesn't matter! Give it a name e.g. ***zone_group***. In that group you add every [*Area2D*](https://docs.godotengine.org/en/stable/classes/class_area2d.html) that you want to be a zone.
@@ -219,7 +229,7 @@ Zone is an [*Area2D*](https://docs.godotengine.org/en/stable/classes/class_area2
 <br>
 
 # Health <img width="24" height="24" alt="health2d" src="/Health/2D/heart.svg"/> <img width="24" height="24" alt="health3d" src="/Health/3D/heart.svg"/>
-**Health** is a *dimention* component, it has a 2D and 3D variation. They have the same use, with one key defference in variables:
+**Health** is a *dimension* component, it has a 2D and 3D variation. They have the same use, with one key defference in variables:
 
 |Variable|Health2D|Health3D|
 | :------: | :------: | :----: |
@@ -313,7 +323,7 @@ Emitted any time health is modified, passing the new values.
 ### How to use
 ----
 
-Now to use a **Health2D** you just add a reference to the **health** component on [Users](#1-user) script like this:
+Now to use a **Health2D** you just add a reference to the **health** component on [Users](#1-user) [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) like this:
 
 <code>@export var health:Health2D</code>
 
@@ -325,7 +335,7 @@ Now to **take damage** you just call: <code> health.take_damage(damage) </code> 
 
 # SceneSpawner <img width="24" height="24" alt="scene_spawner" src="/SceneSpawner/file_plus.svg"/>
 
-It spawns one spesific scene to the game!
+It spawns one specific scene to the game!
 
 ## Setup Properties
 
@@ -353,12 +363,12 @@ Let's say you have a scene that you want to *instantiate* and a scene that you w
 > [!NOTE]
 > From now on the scene you want to *instatiate* will be reffered as ***UI*** and the scene you want to *instantiate into* will be reffered as ***menu***.
 
-To instantiate the *UI* to *menu* you just add the Scene spawner as a *****CHILD***** of *menu* and attach the *UI* to the [scene](#1-scene) variable. Then you add a refferance of the **SceneSpawner** in the *menu's* script like this: <code>@export var scene_spawner:SceneSpawner</code> and now by calling <code>scene_spawner.spawn(self)</code> you are spawning the *UI* to the menu.
+To instantiate the *UI* to *menu* you just add the Scene spawner as a *****CHILD***** of *menu* and attach the *UI* to the [scene](#1-scene) variable. Then you add a reference of the **SceneSpawner** in the *menu's* [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) like this: <code>@export var scene_spawner:SceneSpawner</code> and now by calling <code>scene_spawner.spawn(self)</code> you are spawning the *UI* to the menu.
 
 > [!NOTE]
-> In that case inside <code>scene_spawner.spawn(...)</code> we added self because we wanted to add the UI to the script we were writing. We write inside the scene we want to *instantiate into*. If that scene is the **SceneSpawner's** parent we can leave it empty.
+> In that case inside <code>scene_spawner.spawn(...)</code> we added self because we wanted to add the UI to the [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) we were writing. We write inside the scene we want to *instantiate into*. If that scene is the **SceneSpawner's** parent we can leave it empty.
 
-Now based of how your boolian variables *([spawn top level](#2-spawn-top-level) and [match transform top level](#3-match-transform-top-level))* are assigned there will be different instantiations!
+Now based of how your boolean variables *([spawn top level](#2-spawn-top-level) and [match transform top level](#3-match-transform-top-level))* are assigned there will be different instantiations!
 
 - If both of them are ****true**** the *scene you want to spawn* will be spawned to the scene as a *****CHILD***** of the root node but it will have the [transform](#transform-the-global-position-and-rotation) of the node we have passed inside the spawn, *menu* in this case.
 - If [spawn top level](#2-spawn-top-level) is only ****true**** the *scene you want to spawn* will be spawned to the scene as a *****CHILD***** of the root node but it will have the default [transform](#transform-the-global-position-and-rotation) (position: 0.0 and rotation: 0.0).
@@ -432,9 +442,13 @@ The name of the method that reduces the health.
 > [!NOTE]
 > If empty it keeps the placeholder.
 
+#### Signal
+
+- ***damage_taken***: Emmited when damage is taken.
+
 #### EXAMPLE
 
-Let's say for example we have the [Health Component](#health--) as a health tracker. We add this component as the *Health Counter*. To the *Method* if we open the script of the component we will find this function:
+Let's say for example we have the [Health Component](#health--) as a health tracker. We add this component as the *Health Counter*. To the *Method* if we open the [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) of the component we will find this function:
 
 ```GDScript
 func take_damage(amount:float)->void:
@@ -455,7 +469,7 @@ func take_damage(amount:float)->void:
 	...
 ```
 
-So in *Method* we just copy and paste the name, DO NOT ADD PARENTHESES! If your player script has that kind of function you just add this node and name to the correct variable spots.
+So in *Method* we just copy and paste the name, DO NOT ADD PARENTHESES! If your player [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) has that kind of function you just add this node and name to the correct variable spots.
 
 # FlipSprite2D  <img width="24" height="24" alt="flip_sprite2d" src="/FlipSprite/mirror_xy.svg">
 
@@ -500,7 +514,7 @@ The default Vertical face direction.
 
 To use the component, attach it as a child of your entity, assign your [Sprite](#sprite) node in the inspector, and ensure the *Default Directions* match the artwork's original orientation.
 
-Call the <code>flip_sprite_towards()</code> method dynamically in your movement script. For example, to make a character always face the mouse cursor:
+Call the <code>flip_sprite_towards()</code> method dynamically in your movement [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script). For example, to make a character always face the mouse cursor:
 
 ```GDScript
 @export var flipper: FlipSprite2D # Get component instance
@@ -566,11 +580,11 @@ The [State](#state-) the [User](#user) is starting from.
 
 ### State <img width="24" height="24" alt="finite_state_machinenb_state" src="/FiniteStateMachine/Classic/box.svg">
 
-In states you make the logic you want to run, when the [User](#user) is in this **State**. Each **State** has a spesific way of work.
+In states you make the logic you want to run, when the [User](#user) is in this **State**. Each **State** has a specific way of work.
 
 #### Setup Properties
 
-When you add a **State** node into the [SceneTree](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#class-scenetree) first you *extend the script* and then you add to the "States That Can Change" variable [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary) a [String](https://docs.godotengine.org/en/stable/classes/class_string.html#string) and an other State Node.
+When you add a **State** node into the [SceneTree](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#class-scenetree) first you *extend the [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script)* and then you add to the "States That Can Change" variable [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary) a [String](https://docs.godotengine.org/en/stable/classes/class_string.html#string) and an other State Node.
 
 #### How to code a State
 
@@ -624,7 +638,7 @@ Let's say we keep track of Player's States and we want to be Idle first then, we
 
 ![cog_icon](/Examples/manager_NB.png)
 
-Now to the "Idle" State we *extend the script* and we want to be able to run if we are in Idle state, so we connect the move to the [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary).
+Now to the "Idle" State we *extend the [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script)* and we want to be able to run if we are in Idle state, so we connect the move to the [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary).
 
 ![state_icon](/Examples/State_NB.png)
 
@@ -664,7 +678,7 @@ Whose [States](#state-1) this **Manager** is tracking.
 
 ### State
 
-In states you make the logic you want to run, when the [User](#user) is in this **State**. Each **State** has a spesific way of work. These **States** are never added to the [SceneTree](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#class-scenetree).
+In states you make the logic you want to run, when the [User](#user) is in this **State**. Each **State** has a specific way of work. These **States** are never added to the [SceneTree](https://docs.godotengine.org/en/stable/classes/class_scenetree.html#class-scenetree).
 
 #### How to code a State
 
@@ -713,7 +727,7 @@ Let's say we keep track of Box's States then, we setup the *FiniteStateMachineUB
 
 ![bot_icon](/Examples/machine_UB.png)
 
-Now to the "Box" we *create a script*.
+Now to the "Box" we *create a [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script)*.
 
 ![create_script_icon](/Examples/create_sqp_UB.png)
 
@@ -768,7 +782,7 @@ func _physics_process(delta: float) -> void:
         fsm.change_state(IdleState) # IdleState is the class_name of the Idle.gd!
 ```
 
-# SquashAnimation
+# SquashAnimation <img width="24" height="24" alt="squash_icon" src="/SquashAnimation/gobot.svg">
 
 This component applies a fully customizable, mathematical squash-and-stretch animation to a 2D [Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node). Because it directly overrides the <code>scale</code> and <code>rotation</code> properties of its user every frame, it is highly recommended to apply this component strictly to visual [Nodes](https://docs.godotengine.org/en/stable/classes/class_node.html#node) (like a [Sprite2D](https://docs.godotengine.org/en/stable/classes/class_sprite2d.html#sprite2d) or [TextureRect](https://docs.godotengine.org/en/stable/classes/class_texturerect.html#texturerect)) rather than root physics bodies.
 
@@ -844,20 +858,169 @@ To enable the component, starting the animation from time 0.0. use the function:
 ```GDScript
 @export var squash_anim: SquashAnimation # Get the instance.
 
-func _on_player_landed() -> void: # A random function in the script you want to call.
+func _on_player_landed() -> void: # A random function in the [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) you want to call.
 	squash_anim.play() # Plays animation.
 ``` 
 
-Ideal for triggering from other scripts (e.g., calling it when a player lands a jump).
+Ideal for triggering from other [Scripts](https://docs.godotengine.org/en/stable/classes/class_script.html#script) (e.g., calling it when a player lands a jump).
 
 To disable the component and immediately reset the user node to its original base scale and rotation. We use:
 
 ```GDScript
 @export var squash_anim: SquashAnimation # Get the instance.
 
-func cancel_animation() -> void: # A random function in the script you want to call.
+func cancel_animation() -> void: # A random function in the [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) you want to call.
 	squash_anim.stop() # Stops animation.
 ``` 
+
+# InteractiveUI <img width="24" height="24" alt="Interactive_ui_icon" src="/InteractiveUI/rotary_dial.svg">
+
+A **plug-and-play** component that automatically adds juicy, randomized hover animations to any Godot [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control) node (like [buttons](https://docs.godotengine.org/en/stable/classes/class_button.html#button) or [panels](https://docs.godotengine.org/en/stable/classes/class_panel.html#panel)). When the mouse enters the control area, it scales up and tilts slightly; when the mouse exits, it snaps back to its original transform.
+
+## Setup Properties
+
+|Name|Default|Description|Type|
+|:---| :---: |   :---:   |---:|
+|User| `null` | The UI node that will be *animated*. If left empty, it defaults to its parent.|[Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control)|
+|Ease Type| `EASE_IN_OUT` | The easing curve applied to the *animation*. |<code>[Tween.EaseType](https://docs.godotengine.org/en/stable/classes/class_tween.html#enum-tween-easetype)</code>|
+|Trans Type| `TRANS_SINE` |The transition type applied to the *animation*. |<code>[Tween.TransitionType](https://docs.godotengine.org/en/stable/classes/class_tween.html#enum-tween-transitiontype)</code>|
+|Max Scale| (1.3, 1.3) | The target scale the UI element reaches when hovered.|[Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html#vector2)|
+|Min Rotation| 17.0 | The minimum random rotation (in degrees) applied on hover.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Max Rotation| 21.0 | The maximum random rotation (in degrees) applied on hover.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Time| 0.29 | The duration of the hover *animation* in seconds.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+
+## Basic Use
+
+Attach the **InteractiveUI** component as a child of a [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control) node (e.g., a [Button](https://docs.godotengine.org/en/stable/classes/class_button.html#button) or [TextureRect](https://docs.godotengine.org/en/stable/classes/class_texturerect.html#texturerect)). The component will automatically calculate the center pivot point and connect to the parent's mouse_entered and mouse_exited signals. No additional code is required to make it work.
+
+# SceneTransition
+
+A utility component that handles *screen transitions* by [tweening](https://docs.godotengine.org/en/stable/classes/class_tween.html#tween) a progress parameter on a [ShaderMaterial](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial). Ideal for scene changes using dissolve, wipe, or noise-based shader effects.
+
+> [!NOTE]
+> The [Shader](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial) is provided in the same folder, named **Transition**
+
+## Setup Properties
+
+### Variables
+
+|Name|Default|Description|Type|
+|:---| :---: |   :---:   |---:|
+|Target| `null` | The UI node (typically a full-screen [ColorRect](https://docs.godotengine.org/en/stable/classes/class_colorrect.html#colorrect)) that holds the transition shader. Defaults to parent if empty.|[Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control)|
+|Ease Type| `EASE_IN_OUT` | The easing curve applied to the *animation*. |<code>[Tween.EaseType](https://docs.godotengine.org/en/stable/classes/class_tween.html#enum-tween-easetype)</code>|
+|Trans Type| `TRANS_SINE` |The transition type applied to the *animation*. |<code>[Tween.TransitionType](https://docs.godotengine.org/en/stable/classes/class_tween.html#enum-tween-transitiontype)</code>|
+|Transition Time| 1.5 | The total duration of the transition *animation* in seconds.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Material| `null` | The material containing the transition shader. The component will automatically apply this to the Target node on ready.|[ShaderMaterial](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial)|
+
+### Signals
+
+- ***transition_started***: Emitted the exact moment the tween animation starts.
+- ***transition_finished***: Emitted the exact moment the tween animation completes. Use this to trigger your `get_tree().change_scene_to_file()` logic.
+
+## Basic Use
+
+You can have 2 transitions. You can call them by writing in a [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script):
+
+```GDScript
+@export var transition: SceneTransition # The instance of the component.
+
+func random_function() -> void:
+	transition.transition_out() # Hides the current scene.
+	transition.transition_in() # Reveals the new scene.
+```
+
+# ScreenShake
+
+A component that applies localized trauma-based screen shake to a [Camera2D](https://docs.godotengine.org/en/stable/classes/class_camera2d.html#camera2d) or [Camera3D](https://docs.godotengine.org/en/stable/classes/class_camera3d.html#camera3d) node. It supports standard randomized noise offsets as well as smooth Perlin/Simplex noise generation.
+
+## Setup Properties
+
+|Name|Default|Description|Type|
+|:---|:---:|:---:|---:|
+|Max Offset|(50.0, 50.0)|The maximum physical displacement applied to the *camera* on the X and Y axes.|[Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html#vector2)|
+|Max Roll|10.0|The maximum rotational displacement (in degrees). Applies to Camera2D only.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Trauma Reduction Rate|0.8|How quickly the trauma decays back to 0.0 over time.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+Use Noise|`false`|If **enabled**, the *camera* smoothly interpolates offsets using a noise resource rather than harsh randomization.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Noise|`null`|The FastNoiseLite resource used if Use Noise is active.|[FastNoiseLite](https://docs.godotengine.org/en/stable/classes/class_fastnoiselite.html#fastnoiselite)|
+|Noise Speed|50.0|How fast the component samples through the noise map. Higher values create faster, jerkier shakes.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+
+## Use
+
+To trigger a ***screen shake***, call `add_trauma()` on the component. Trauma is capped internally at `1.0`.
+
+```GDScript
+@export var screen_shake: ScreenShake # The instance of the component.
+
+func _on_bomb_exploded() -> void: # Random function.
+    ## Adds 0.6 trauma to the current shake pool
+    screen_shake.add_trauma(0.6)
+```
+
+# Drop Rate System
+
+It is a system that uses 2 *[Scripts](https://docs.godotengine.org/en/stable/classes/class_script.html#script)*,**DropManager.gd** & **RateLine.gd**. The **DropManager** is a high-performance, global loot generation system. It utilizes **RateLine** custom [resources](https://docs.godotengine.org/en/stable/classes/class_resource.html) to define drop pools. The manager caches these pools into strictly typed arrays on startup, ensuring that complex RNG weighting and luck calculations have zero overhead during gameplay.
+
+## RateLine (Resource)
+
+A **RateLine** represents a single loot pool (e.g., "goblin_drops", "rare_chest" or level_1). To create one, right-click in your *FileSystem*, select New [Resource](https://docs.godotengine.org/en/stable/classes/class_resource.html), and search for **RateLine**.
+
+### Setup Properties
+
+|Name|Default|Description|Type|
+|:---|:---:|:---:|---:|
+|Global Drop Chance|100.0|The overall percentage chance (0 to 100) that this loot pool yields anything at all.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|Drops|` {} `|A dictionary mapping an Item to its drop rules.|[Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary)|
+
+#### Configuring the Drops Dictionary
+
+The Drops [dictionary]((https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary)) uses the Item (a [String](https://docs.godotengine.org/en/stable/classes/class_string.html#string), [PackedScene](https://docs.godotengine.org/en/stable/classes/class_packedscene.html#packedscene), or [integer](https://docs.godotengine.org/en/stable/classes/class_int.html#int) ID) as the Key, and a [Vector3](https://docs.godotengine.org/en/stable/classes/class_vector3.html#vector3) as the Value for its logic.
+
+- **X (Weight)**: The drop weight of this item. The sum of all X values in the dictionary must equal exactly 100.0.
+
+- **Y (Min Amount)**: The minimum quantity of the item dropped.
+
+- **Z (Max Amount)**: The maximum quantity of the item dropped.
+
+## DropManager
+
+Because loot tables need to be accessible from anywhere and cached only once, the **DropManager** must be set up as a *Global Autoload (Singleton) Scene*.
+
+1. Create a new Scene with a basic [Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node) as the root. Name it **DropManager**.
+
+2. Attach the **DropManager.gd** [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script) to this node.
+
+3. Configure your *Editor Drop Table* properties in the inspector.
+
+4. Save the scene as **DropManager.tscn**.
+
+5. Go to ***Project → Project Settings → Globals***. Select your new **DropManager.tscn** file and click *Add*.
+
+### Setup Properties
+
+|Name|Default|Description|Type|
+|:---|:---:|:---:|---:|
+|Use Global Drop Chance|true|If **enabled**, honors the *global_drop_chance* defined in the **RateLine** resource.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Use Min Max Quantities|true|If **enabled**, randomizes item quantities between the Y and Z values. If **disabled**, all successful rolls yield 1.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Editor Drop Table|` {} `|A dictionary mapping a unique String ID (e.g., ""boss_pool"") to a **RateLine** resource.|[Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary)|
+
+> [!NOTE]
+> The component will throw editor warnings if you leave a resource slot empty or if a RateLine's total weight does not equal exactly 100%.
+
+### Use
+
+```GDScript
+func get_drop(target_id: String, luck: float = 1.0, rolls: int = 1) -> Array[Dictionary]: (...)
+```
+
+Requests loot from a specific pool anywhere in your game.
+
+- ***target_id***: The string key matching the entry in your **Editor Drop Table**.
+
+- ***luck***: A multiplier that skews the math toward rarer items. `1.0` is standard rates; values > `1.0` favor *rare items*.
+
+- ***rolls***: How many items to generate from the pool.
+
+***Returns***: An array of dictionaries formatting the output cleanly: `[{"item": Variant, "amount": int}]`. If the global drop chance fails or the pool is empty, returns an empty array ` [] `.
 
 # Glossary
 

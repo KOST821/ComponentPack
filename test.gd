@@ -3,7 +3,7 @@ extends Node2D
 @onready var squash_animation: SquashAnimation = $Area2D/Sprite2D/SquashAnimation
 
 func _on_button_pressed() -> void:
-	squash_animation.enable = !squash_animation.enable
+	$CanvasLayer/ColorRect/NoiseTransition.transition_out()
 
 
 func _on_h_slider_value_changed(value: float) -> void:

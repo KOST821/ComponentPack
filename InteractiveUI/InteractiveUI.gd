@@ -12,11 +12,12 @@ class_name InteractiveUI
 
 ## The max rotation the user can rotate in degrees.
 @export var max_scale:Vector2 = Vector2.ONE * 1.3
-## The min rotation the user can rotate in degrees.
+## The min scale the user can reach.
 @export var min_rotation:float = 17.0:
 	set(value):
 		min_rotation = value
 		_rad_rotation_min = deg_to_rad(min_rotation)
+		
 ## The max rotation the user can rotate in degrees.
 @export var max_rotation:float = 21.0:
 	set(value):
@@ -38,7 +39,7 @@ func _ready() -> void:
 	if user == null:
 		user = get_parent() as Control
 		if user == null:
-			push_error("You forgot to place the user to the DragDropComponent2D (",self,"). Automatically tried to add the parent (",get_parent(),") but it wasn't a Control Node, KOSSAINIS")
+			push_error("You forgot to place the user to the InteractiveUI (",self,"). Automatically tried to add the parent (",get_parent(),") but it wasn't a Control Node, KOSSAINIS")
 			return
 		push_warning('You forgot to place the "user" to the InteractiveUI (',self,'). Automatically added the parent (',user,'), KOSSAINIS')
 	

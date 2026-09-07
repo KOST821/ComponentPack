@@ -4,7 +4,47 @@
 [ext_resource type="Script" uid="uid://cfdwhqfwsap3" path="res://SquashAnimation/SquashAnimation.gd" id="2_8uh7m"]
 [ext_resource type="Script" uid="uid://nk568qgpypnb" path="res://InteractiveUI/InteractiveUI.gd" id="2_ehkex"]
 [ext_resource type="Texture2D" uid="uid://chifrp5cj7b0" path="res://InputBuffer/alarm_clock.svg" id="2_vbegm"]
+[ext_resource type="Script" uid="uid://cvytlmei567hv" path="res://ScreenShake/ScreenShake.gd" id="2_xersf"]
+[ext_resource type="Script" uid="uid://b38rami0t6i44" path="res://SceneTransition/SceneTransition.gd" id="3_ehkex"]
+[ext_resource type="Shader" uid="uid://c20cw75o25beg" path="res://SceneTransition/Transition.gdshader" id="3_vbegm"]
+[ext_resource type="FastNoiseLite" uid="uid://43mb4ow66sgp" path="res://pretty_noise.tres" id="4_ehkex"]
 [ext_resource type="Script" uid="uid://bdn5jgrpa2e5p" path="res://DragAndDrop/DragAndDrop.gd" id="4_ppyta"]
+[ext_resource type="Script" uid="uid://dh0qa1lg6hpya" path="res://DropRate/DropManager.gd" id="10_77dp3"]
+
+[sub_resource type="Gradient" id="Gradient_xersf"]
+colors = PackedColorArray(0.81716335, 0.48972756, 1.92523e-07, 1, 1, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hojwk"]
+seed = 10
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_obxuk"]
+noise = SubResource("FastNoiseLite_hojwk")
+color_ramp = SubResource("Gradient_xersf")
+as_normal_map = true
+seamless_blend_skirt = 0.09
+bump_strength = 15.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5p6vy"]
+shader = ExtResource("3_vbegm")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_obxuk")
+shader_parameter/progress = 0.0
+shader_parameter/edge_thickness = 0.02
+shader_parameter/edge_color = Color(0, 0.5019608, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_ehkex"]
+offsets = PackedFloat32Array(0, 0.31460676, 0.55617976, 0.80898875, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.13827527, 0.1382753, 0.13827524, 1, 0.4794433, 0.47944337, 0.4794433, 1, 0.8362294, 0.8362294, 0.8362294, 1, 1, 1, 1, 1)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5tkv4"]
+noise = ExtResource("4_ehkex")
+color_ramp = SubResource("Gradient_ehkex")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_77dp3"]
+shader = ExtResource("3_vbegm")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_5tkv4")
+shader_parameter/progress = 0.0
+shader_parameter/edge_thickness = 0.10000000149012
+shader_parameter/edge_color = Color(1, 1, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
 radius = 15.132746
@@ -16,6 +56,10 @@ script = ExtResource("1_6uqi0")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=624203742]
 zoom = Vector2(4, 4)
+
+[node name="ScreenShake" type="Node" parent="Camera2D" unique_id=107986707]
+script = ExtResource("2_xersf")
+metadata/_custom_type_script = "uid://cvytlmei567hv"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1352450315]
 
@@ -59,7 +103,25 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=16293089]
+material = SubResource("ShaderMaterial_5p6vy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.075244345, 0.07524436, 0.075244345, 1)
+
+[node name="NoiseTransition" type="Node" parent="CanvasLayer/ColorRect" unique_id=519938247 node_paths=PackedStringArray("target")]
+script = ExtResource("3_ehkex")
+target = NodePath("..")
+transition_time = 1.09
+ease_type = 1
+trans_type = 10
+material = SubResource("ShaderMaterial_77dp3")
+
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=287663653]
+modulate = Color(1, 0, 0, 1)
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -71,6 +133,7 @@ offset_right = -14.0
 offset_bottom = -131.0
 grow_horizontal = 2
 grow_vertical = 0
+focus_mode = 0
 
 [node name="InteractiveUI" type="Node" parent="CanvasLayer/Button" unique_id=1215059904]
 script = ExtResource("2_ehkex")
@@ -90,7 +153,6 @@ texture = ExtResource("2_vbegm")
 [node name="SquashAnimation" type="Node" parent="Area2D/Sprite2D" unique_id=1937918173 node_paths=PackedStringArray("user")]
 script = ExtResource("2_8uh7m")
 user = NodePath("..")
-enable = true
 metadata/_custom_type_script = "uid://cfdwhqfwsap3"
 
 [node name="DragDropComponent2D" type="Node" parent="Area2D" unique_id=397970689 node_paths=PackedStringArray("user", "drop_sensor")]
@@ -143,6 +205,13 @@ texture = ExtResource("2_vbegm")
 script = ExtResource("2_8uh7m")
 user = NodePath("..")
 metadata/_custom_type_script = "uid://cfdwhqfwsap3"
+
+[node name="DropManager" type="Node" parent="." unique_id=1831920047]
+script = ExtResource("10_77dp3")
+use_global_drop_chance = null
+use_min_max_quantities = null
+editor_drop_table = null
+metadata/_custom_type_script = "uid://dh0qa1lg6hpya"
 
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider2" to="." method="_on_h_slider_2_value_changed"]
