@@ -5,6 +5,9 @@ extends Node2D
 func _on_button_pressed() -> void:
 	$CanvasLayer/ColorRect/NoiseTransition.transition_out()
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept"):
+		$CanvasLayer/ColorRect/NoiseTransition.transition_in()
 
 func _on_h_slider_value_changed(value: float) -> void:
 	$CanvasLayer/HBoxContainer/Label2.text = "max: " + str(value)

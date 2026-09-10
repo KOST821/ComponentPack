@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://chifrp5cj7b0" path="res://InputBuffer/alarm_clock.svg" id="2_vbegm"]
 [ext_resource type="Script" uid="uid://cvytlmei567hv" path="res://ScreenShake/ScreenShake.gd" id="2_xersf"]
 [ext_resource type="Script" uid="uid://b38rami0t6i44" path="res://SceneTransition/SceneTransition.gd" id="3_ehkex"]
-[ext_resource type="Shader" uid="uid://c20cw75o25beg" path="res://SceneTransition/Transition.gdshader" id="3_vbegm"]
-[ext_resource type="FastNoiseLite" uid="uid://43mb4ow66sgp" path="res://pretty_noise.tres" id="4_ehkex"]
+[ext_resource type="Shader" uid="uid://c20cw75o25beg" path="res://SceneTransition/FireTransition.gdshader" id="3_vbegm"]
 [ext_resource type="Script" uid="uid://bdn5jgrpa2e5p" path="res://DragAndDrop/DragAndDrop.gd" id="4_ppyta"]
+[ext_resource type="Shader" uid="uid://cnfsnmi3nbdtd" path="res://SceneTransition/WaveTransition.gdshader" id="5_00tp4"]
 [ext_resource type="Script" uid="uid://dh0qa1lg6hpya" path="res://DropRate/DropManager.gd" id="10_77dp3"]
 
 [sub_resource type="Gradient" id="Gradient_xersf"]
@@ -31,20 +31,15 @@ shader_parameter/progress = 0.0
 shader_parameter/edge_thickness = 0.02
 shader_parameter/edge_color = Color(0, 0.5019608, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_ehkex"]
-offsets = PackedFloat32Array(0, 0.31460676, 0.55617976, 0.80898875, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.13827527, 0.1382753, 0.13827524, 1, 0.4794433, 0.47944337, 0.4794433, 1, 0.8362294, 0.8362294, 0.8362294, 1, 1, 1, 1, 1)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5tkv4"]
-noise = ExtResource("4_ehkex")
-color_ramp = SubResource("Gradient_ehkex")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_77dp3"]
-shader = ExtResource("3_vbegm")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_5tkv4")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xersf"]
+shader = ExtResource("5_00tp4")
 shader_parameter/progress = 0.0
-shader_parameter/edge_thickness = 0.10000000149012
-shader_parameter/edge_color = Color(1, 1, 0, 1)
+shader_parameter/angle = 45.0
+shader_parameter/wipe_color = Color(0.42, 0.6, 1, 1)
+shader_parameter/edge_thickness = 0.05
+shader_parameter/edge_color = Color(1, 0.95, 0.84, 1)
+shader_parameter/wave_freq = 16.62
+shader_parameter/wave_amp = 0.05
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
 radius = 15.132746
@@ -112,13 +107,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.075244345, 0.07524436, 0.075244345, 1)
 
-[node name="NoiseTransition" type="Node" parent="CanvasLayer/ColorRect" unique_id=519938247 node_paths=PackedStringArray("target")]
+[node name="NoiseTransition" type="Node" parent="CanvasLayer/ColorRect" unique_id=519938247]
 script = ExtResource("3_ehkex")
-target = NodePath("..")
-transition_time = 1.09
-ease_type = 1
-trans_type = 10
-material = SubResource("ShaderMaterial_77dp3")
+material = SubResource("ShaderMaterial_xersf")
 
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=287663653]
 modulate = Color(1, 0, 0, 1)
@@ -208,9 +199,6 @@ metadata/_custom_type_script = "uid://cfdwhqfwsap3"
 
 [node name="DropManager" type="Node" parent="." unique_id=1831920047]
 script = ExtResource("10_77dp3")
-use_global_drop_chance = null
-use_min_max_quantities = null
-editor_drop_table = null
 metadata/_custom_type_script = "uid://dh0qa1lg6hpya"
 
 [connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]

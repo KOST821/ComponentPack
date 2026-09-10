@@ -1,4 +1,5 @@
 @tool
+@icon("gem.svg")
 extends Resource
 class_name RateLine
 

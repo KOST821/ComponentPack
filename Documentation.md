@@ -26,11 +26,19 @@
 
 - ![interactive_ui_icon](/InteractiveUI/rotary_dial.svg) [InteractiveUI](#interactiveui-)
 
+- ![scene_trans_icon](/SceneTransition/sign_post.svg) [SceneTransition](#scenetransition-)
+
+- ![screen_shake_icon](/ScreenShake/photo_camera.svg) [ScreenShake](#screenshake-)
+
+- [Drop Rate System](#drop-rate-system)
+	- ![RateLine_icon](/DropRate/resource/gem.svg) [RateLine](#rateline-resource-)
+	- ![DropManager_icon](/DropRate/chest.svg) [DropManager](#dropmanager-)
+
 - [Glossary](#glossary)
 
 <br> <br>
 
-# Gravity <img width="24" height="24" alt="gravity" src="/Gravity/gravity.svg"/> 
+# Gravity <img width="24" height="24" alt="gravity" src="/Gravity/gravity.svg"/>
 
 This component adds gravity to a Node.
 
@@ -127,15 +135,13 @@ This component is used to add a drag and drop feature to an [*CollisionObject2D*
 
 If we had a [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) with no [Scripts](https://docs.godotengine.org/en/stable/classes/class_script.html#script), and as children a [**CollisionShape2D**](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) and a **drag and drop** when you "grab" the [*CharacterBody2D*](https://docs.godotengine.org/en/stable/classes/class_characterbody2d.html) inside the [CollisionShape2D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) you can move it! To work you must look at those 6 things:
 
-<ol>
-	<li> User </li>
-	<li> Drop Sensor </li>
-	<li> Behavior </li>
-	<li> Drop Zone Group </li>
-	<li> Input Start Action </li>
-	<li> Input End Action </li>
-	<li> Tween Trans </li>
-</ol>
+1. User
+1. Drop Sensor
+1. Behavior
+1. Drop Zone Group
+1. Input Start Action
+1. Input End Action
+1. Tween Trans
 
 When all of these are filled you can use the **drag and drop**!
 
@@ -893,12 +899,12 @@ A **plug-and-play** component that automatically adds juicy, randomized hover an
 
 Attach the **InteractiveUI** component as a child of a [Control](https://docs.godotengine.org/en/stable/classes/class_control.html#control) node (e.g., a [Button](https://docs.godotengine.org/en/stable/classes/class_button.html#button) or [TextureRect](https://docs.godotengine.org/en/stable/classes/class_texturerect.html#texturerect)). The component will automatically calculate the center pivot point and connect to the parent's mouse_entered and mouse_exited signals. No additional code is required to make it work.
 
-# SceneTransition
+# SceneTransition <img width="24" height="24" alt="scene_trans_icon" src="/SceneTransition/sign_post.svg"/>
 
 A utility component that handles *screen transitions* by [tweening](https://docs.godotengine.org/en/stable/classes/class_tween.html#tween) a progress parameter on a [ShaderMaterial](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial). Ideal for scene changes using dissolve, wipe, or noise-based shader effects.
 
 > [!NOTE]
-> The [Shader](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial) is provided in the same folder, named **Transition**
+> The are some [Shaders](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial) provided in the same folder.
 
 ## Setup Properties
 
@@ -929,7 +935,7 @@ func random_function() -> void:
 	transition.transition_in() # Reveals the new scene.
 ```
 
-# ScreenShake
+# ScreenShake <img width="24" height="24" alt="screen_shake_icon" src="/ScreenShake/photo_camera.svg"/>
 
 A component that applies localized trauma-based screen shake to a [Camera2D](https://docs.godotengine.org/en/stable/classes/class_camera2d.html#camera2d) or [Camera3D](https://docs.godotengine.org/en/stable/classes/class_camera3d.html#camera3d) node. It supports standard randomized noise offsets as well as smooth Perlin/Simplex noise generation.
 
@@ -960,7 +966,7 @@ func _on_bomb_exploded() -> void: # Random function.
 
 It is a system that uses 2 *[Scripts](https://docs.godotengine.org/en/stable/classes/class_script.html#script)*,**DropManager.gd** & **RateLine.gd**. The **DropManager** is a high-performance, global loot generation system. It utilizes **RateLine** custom [resources](https://docs.godotengine.org/en/stable/classes/class_resource.html) to define drop pools. The manager caches these pools into strictly typed arrays on startup, ensuring that complex RNG weighting and luck calculations have zero overhead during gameplay.
 
-## RateLine (Resource)
+## RateLine (Resource) <img width="24" height="24" alt="RateLine_icon" src="/DropRate/resource/gem.svg"/>
 
 A **RateLine** represents a single loot pool (e.g., "goblin_drops", "rare_chest" or level_1). To create one, right-click in your *FileSystem*, select New [Resource](https://docs.godotengine.org/en/stable/classes/class_resource.html), and search for **RateLine**.
 
@@ -981,7 +987,7 @@ The Drops [dictionary]((https://docs.godotengine.org/en/stable/classes/class_dic
 
 - **Z (Max Amount)**: The maximum quantity of the item dropped.
 
-## DropManager
+## DropManager <img width="24" height="24" alt="drop_rate" src="/DropRate/chest.svg"/>
 
 Because loot tables need to be accessible from anywhere and cached only once, the **DropManager** must be set up as a *Global Autoload (Singleton) Scene*.
 
