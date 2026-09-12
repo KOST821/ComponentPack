@@ -11,8 +11,8 @@ Welcome to the **Component Asset Pack**! This is a collection of ready-to-use, h
 ## 📦 Installation
 1. Download the latest release from the Releases tab.
 2. Extract the ZIP file.
-3. Drag the `components` folder into your Godot project's `res://` directory.
+3. Drag the `ComponentAssetPack` folder into your Godot project's `res://` directory.
 
 ## 📖 Documentation
 Want to know the exact setup and parameters for every script? 
-[Read the full documentation here](Documentation.md).
+[Read the full documentation here](ComponentAssetPack/Documentation.md).

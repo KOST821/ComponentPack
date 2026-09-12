@@ -1,208 +1,27 @@
 [gd_scene format=3 uid="uid://i3xe63njuc87"]
 
 [ext_resource type="Script" uid="uid://bocnxvnsmgohw" path="res://test.gd" id="1_6uqi0"]
-[ext_resource type="Script" uid="uid://cfdwhqfwsap3" path="res://SquashAnimation/SquashAnimation.gd" id="2_8uh7m"]
-[ext_resource type="Script" uid="uid://nk568qgpypnb" path="res://InteractiveUI/InteractiveUI.gd" id="2_ehkex"]
-[ext_resource type="Texture2D" uid="uid://chifrp5cj7b0" path="res://InputBuffer/alarm_clock.svg" id="2_vbegm"]
-[ext_resource type="Script" uid="uid://cvytlmei567hv" path="res://ScreenShake/ScreenShake.gd" id="2_xersf"]
-[ext_resource type="Script" uid="uid://b38rami0t6i44" path="res://SceneTransition/SceneTransition.gd" id="3_ehkex"]
-[ext_resource type="Shader" uid="uid://c20cw75o25beg" path="res://SceneTransition/FireTransition.gdshader" id="3_vbegm"]
-[ext_resource type="Script" uid="uid://bdn5jgrpa2e5p" path="res://DragAndDrop/DragAndDrop.gd" id="4_ppyta"]
-[ext_resource type="Shader" uid="uid://cnfsnmi3nbdtd" path="res://SceneTransition/WaveTransition.gdshader" id="5_00tp4"]
-[ext_resource type="Script" uid="uid://dh0qa1lg6hpya" path="res://DropRate/DropManager.gd" id="10_77dp3"]
+[ext_resource type="PackedScene" uid="uid://sw8hvilbb44f" path="res://area_2d.tscn" id="3_ykrsh"]
+[ext_resource type="Texture2D" uid="uid://ou1wfa64ejkw" path="res://icon.svg" id="4_g14j6"]
 
-[sub_resource type="Gradient" id="Gradient_xersf"]
-colors = PackedColorArray(0.81716335, 0.48972756, 1.92523e-07, 1, 1, 0, 0, 1)
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dl81w"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hojwk"]
-seed = 10
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_obxuk"]
-noise = SubResource("FastNoiseLite_hojwk")
-color_ramp = SubResource("Gradient_xersf")
-as_normal_map = true
-seamless_blend_skirt = 0.09
-bump_strength = 15.8
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5p6vy"]
-shader = ExtResource("3_vbegm")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_obxuk")
-shader_parameter/progress = 0.0
-shader_parameter/edge_thickness = 0.02
-shader_parameter/edge_color = Color(0, 0.5019608, 0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xersf"]
-shader = ExtResource("5_00tp4")
-shader_parameter/progress = 0.0
-shader_parameter/angle = 45.0
-shader_parameter/wipe_color = Color(0.42, 0.6, 1, 1)
-shader_parameter/edge_thickness = 0.05
-shader_parameter/edge_color = Color(1, 0.95, 0.84, 1)
-shader_parameter/wave_freq = 16.62
-shader_parameter/wave_amp = 0.05
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5p6vy"]
-radius = 15.132746
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5p6vy"]
-
-[node name="Node2D" type="Node2D" unique_id=1454336553]
+[node name="Node2D" type="Node3D" unique_id=976289141]
 script = ExtResource("1_6uqi0")
+scene = ExtResource("3_ykrsh")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=624203742]
-zoom = Vector2(4, 4)
+[node name="Camera2D" type="Camera3D" parent="." unique_id=2100800504]
+transform = Transform3D(-0.7239921, 0, -0.68980825, 0, 1, 0, 0.68980825, 0, -0.7239921, -36.707397, 0, -15.678221)
 
-[node name="ScreenShake" type="Node" parent="Camera2D" unique_id=107986707]
-script = ExtResource("2_xersf")
-metadata/_custom_type_script = "uid://cvytlmei567hv"
+[node name="Marker2D" type="Marker3D" parent="." unique_id=2002883459]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1352450315]
+[node name="Marker2D" type="Marker3D" parent="Marker2D" unique_id=1354272504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.01, 0, 0)
 
-[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2087140161]
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = -10.0
-offset_right = -10.0
-offset_bottom = 36.0
-grow_horizontal = 2
+[node name="Sprite2D" type="MeshInstance3D" parent="." unique_id=606663668]
+transform = Transform3D(0.18196121, 0, 0, 0, 0.18196121, 0, 0, 0, 0, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_dl81w")
 
-[node name="Label2" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=48967985]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="HSlider" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=2055124418]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1749164616]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="HSlider2" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=938746154]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label3" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1665995668]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="HSlider3" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=1381606802]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label4" type="Label" parent="CanvasLayer/HBoxContainer" unique_id=1614856881]
-layout_mode = 2
-horizontal_alignment = 1
-
-[node name="HSlider4" type="HSlider" parent="CanvasLayer/HBoxContainer" unique_id=690224356]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=16293089]
-material = SubResource("ShaderMaterial_5p6vy")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.075244345, 0.07524436, 0.075244345, 1)
-
-[node name="NoiseTransition" type="Node" parent="CanvasLayer/ColorRect" unique_id=519938247]
-script = ExtResource("3_ehkex")
-material = SubResource("ShaderMaterial_xersf")
-
-[node name="Button" type="Button" parent="CanvasLayer" unique_id=287663653]
-modulate = Color(1, 0, 0, 1)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -67.0
-offset_top = -164.0
-offset_right = -14.0
-offset_bottom = -131.0
-grow_horizontal = 2
-grow_vertical = 0
-focus_mode = 0
-
-[node name="InteractiveUI" type="Node" parent="CanvasLayer/Button" unique_id=1215059904]
-script = ExtResource("2_ehkex")
-metadata/_custom_type_script = "uid://nk568qgpypnb"
-
-[node name="Area2D" type="CharacterBody2D" parent="." unique_id=1834589469]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=859130916]
-shape = SubResource("CircleShape2D_5p6vy")
-
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=411484405]
-texture_filter = 3
-rotation = 1.0471976
-scale = Vector2(0.9942427, 1.008426)
-texture = ExtResource("2_vbegm")
-
-[node name="SquashAnimation" type="Node" parent="Area2D/Sprite2D" unique_id=1937918173 node_paths=PackedStringArray("user")]
-script = ExtResource("2_8uh7m")
-user = NodePath("..")
-metadata/_custom_type_script = "uid://cfdwhqfwsap3"
-
-[node name="DragDropComponent2D" type="Node" parent="Area2D" unique_id=397970689 node_paths=PackedStringArray("user", "drop_sensor")]
-script = ExtResource("4_ppyta")
-user = NodePath("..")
-drop_sensor = NodePath("../Area2D")
-behavior = 1
-drop_zone_group = "drop_zones"
-metadata/_custom_type_script = "uid://bdn5jgrpa2e5p"
-
-[node name="Area2D" type="Area2D" parent="Area2D" unique_id=279283219]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D/Area2D" unique_id=1064203529]
-shape = SubResource("RectangleShape2D_5p6vy")
-debug_color = Color(0.97312635, 0, 0.4395546, 0.41960785)
-
-[node name="Area2D2" type="Area2D" parent="." unique_id=1895157712 groups=["drop_zones"]]
-position = Vector2(-85, -30)
-
-[node name="DragAndDrop" type="Node" parent="Area2D2" unique_id=298874472]
-script = ExtResource("4_ppyta")
-drop_zone_group = "drop_zones"
-metadata/_custom_type_script = "uid://bdn5jgrpa2e5p"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=451398358]
-shape = SubResource("CircleShape2D_5p6vy")
-
-[node name="Sprite2D" type="Sprite2D" parent="Area2D2" unique_id=1114188117]
-texture_filter = 3
-scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("2_vbegm")
-
-[node name="SquashAnimation" type="Node" parent="Area2D2/Sprite2D" unique_id=1467934007 node_paths=PackedStringArray("user")]
-script = ExtResource("2_8uh7m")
-user = NodePath("..")
-metadata/_custom_type_script = "uid://cfdwhqfwsap3"
-
-[node name="Area2D3" type="Area2D" parent="." unique_id=1073898911 groups=["drop_zones"]]
-position = Vector2(97, -41)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3" unique_id=1897027038]
-shape = SubResource("CircleShape2D_5p6vy")
-
-[node name="Sprite2D" type="Sprite2D" parent="Area2D3" unique_id=146428508]
-texture_filter = 3
-scale = Vector2(1e-05, 1e-05)
-texture = ExtResource("2_vbegm")
-
-[node name="SquashAnimation" type="Node" parent="Area2D3/Sprite2D" unique_id=1104780189 node_paths=PackedStringArray("user")]
-script = ExtResource("2_8uh7m")
-user = NodePath("..")
-metadata/_custom_type_script = "uid://cfdwhqfwsap3"
-
-[node name="DropManager" type="Node" parent="." unique_id=1831920047]
-script = ExtResource("10_77dp3")
-metadata/_custom_type_script = "uid://dh0qa1lg6hpya"
-
-[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider2" to="." method="_on_h_slider_2_value_changed"]
-[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider3" to="." method="_on_h_slider_3_value_changed"]
-[connection signal="value_changed" from="CanvasLayer/HBoxContainer/HSlider4" to="." method="_on_h_slider_4_value_changed"]
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1075880674]
+transform = Transform3D(4.160214, 0, 0, 0, 3.989385, 0, 0, 0, 1, 0, 0, -2.1157296)
+texture = ExtResource("4_g14j6")

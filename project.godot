@@ -20,6 +20,7 @@ DropRateManager="*uid://dh0qa1lg6hpya"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -30,7 +31,7 @@ enabled=PackedStringArray()
 [file_customization]
 
 folder_colors={
-"res://Examples/": "red"
+"res://ComponentAssetPack/Examples/": "red"
 }
 
 [global_group]
