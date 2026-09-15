@@ -16,11 +16,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DropRateManager="*uid://dh0qa1lg6hpya"
+DropManager="*uid://djegfmvehwytp"
 
 [display]
 
-window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

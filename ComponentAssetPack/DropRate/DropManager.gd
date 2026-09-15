@@ -7,7 +7,7 @@ extends Node
 @export_category("Features")
 ## If enabled, rolls a 0-100% check first to see if anything drops at all.
 @export var use_global_drop_chance : bool = true
-## If enabled, returns rolled quantities based on the Y (Min) and Z (Max) values. 
+## If enabled, returns rolled quantities based on the [b][color=RED]Y (Min)[/color] and [color=BLUE]Z (Max)[/color] values[/b]. 
 ## If disabled, always returns an amount of 1.
 @export var use_min_max_quantities : bool = true
 

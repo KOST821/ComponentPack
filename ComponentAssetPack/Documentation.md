@@ -40,6 +40,10 @@
 	* ![prmov2d](ProjectileMovement/2D/arrow_projectile.svg) [ProjectileMovement2D](#projectilemovement2d-)
 	* ![prmov3d](ProjectileMovement/3D/arrow_projectile.svg) [ProjectileMovement3D](#projectilemovement3d-)
 
+- [One Time Animation](#one-time-animation)
+	* ![OneTimespr_icon](OneTimeAnimatedSprite/2D/OneTimeAnimationIcon.svg) ![OneTimesanim_icon](OneTimeAnimatedSprite/3D/OneTimeAnimationIcon.svg) [OneTimeAnimatedSprite](#onetimeanimatedsprite--)
+	* ![OneTimespr_icon](OneTimeAnimationPlayer/book_open.svg)  [OneTimeAnimationPlayer](#onetimeanimationplayer-)
+
 - [Glossary](#glossary)
 
 <br> <br>
@@ -910,7 +914,7 @@ Attach the **InteractiveUI** component as a child of a [Control](https://docs.go
 A utility component that handles *screen transitions* by [tweening](https://docs.godotengine.org/en/stable/classes/class_tween.html#tween) a progress parameter on a [ShaderMaterial](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial). Ideal for scene changes using dissolve, wipe, or noise-based shader effects.
 
 > [!NOTE]
-> The are some [Shaders](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial) provided in the same folder.
+> The are some [Shaders](https://docs.godotengine.org/en/stable/classes/class_shadermaterial.html#shadermaterial) provided in the [Transitions folder](SceneTransition/Transitions) inside the same folder.
 
 ## Setup Properties
 
@@ -1107,6 +1111,111 @@ Lifetime|0.0|Time in seconds before the projectile calls [`queue_free()`](https:
 3. Set the Speed and enable Rotate Based On Velocity.
 
 You can [get it to the game](#get-it-to-the-game) the same as 2D.
+
+# One Time Animation
+
+**One time animation** is a pack of 2 components. Their work is to play an animation and remove a node or themselves after!
+
+## OneTimeAnimatedSprite <img width="24" height="24" alt="onetimeanisp2d" src="OneTimeAnimatedSprite/2D/OneTimeAnimationIcon.svg"/> <img width="24" height="24" alt="onetimeanisp3d" src="OneTimeAnimatedSprite/3D/OneTimeAnimationIcon.svg"/>
+
+This is a [dimentional component](#dimensional-component-the-component-with-both-2d-and-3d-versions-usally-the-componets-that-are-not-dimentional-are-working-in-both-dimentions) and it does not need any setup (**other than the node to be deleted**)!
+
+You just add the [SpriteFrames](https://docs.godotengine.org/en/stable/classes/class_spriteframes.html#spriteframes) and you are done!
+
+> [!NOTE]
+> Looping animations are not finishing!
+
+## OneTimeAnimationPlayer <img width="24" height="24" alt="onetimeanimpl" src="OneTimeAnimationPlayer/book_open.svg"/>
+
+You just add the [Animation](https://docs.godotengine.org/en/stable/tutorials/animation/index.html#animation), **the node to be deleted** and you are done!
+
+> [!NOTE]
+> Looping animations are not finishing!
+
+# Debug <img width="24" height="24" alt="debug_icon" src="Debug/bug.svg"/>
+
+This component provides a customizable *debugging* utility for tracking **properties** and **signals** dynamically.
+
+## Setup Properties
+
+To configure the Debug component, adjust the following variables in the inspector:
+
+|***Data***||||
+|:---|:---:|:---:|---:|
+|Name|Default|Description|Type|
+|Is Enabled|`true`|If *true*, the Debug is *enabled*.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Target|`null`|The Node that will be debugged. If left empty, it automatically defaults to its parent.|[Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node)|
+|Debug Indicator|[DEBUG]|The prefix string the Debug will write.|[String](https://docs.godotengine.org/en/stable/classes/class_string.html#string)|
+|Timestamped|`true`|If *true*, the Debug will print the system time when the event occurred.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Theme Palette|`null`| A DebugPalette resource to auto-theme the text. If left empty the individual colors will be placed.|[DebugPalette](#debugpalette)|
+|Time Debug Color|[`#ff69b4`](https://www.colorhexa.com/ff69b4) *(HOT PINK)*| The color of the timestamp text.|[Color](https://docs.godotengine.org/en/stable/classes/class_color.html#color)|
+|***Visuals***||||
+|Display Mode|Console Only| Determines how the debug information should be displayed in-game.|[DisplayMode](#displaymode)|
+|Label|`null`|If a RichTextLabel is assigned here, the debug information will also be appended to that specific label.|[RichTextLabel](https://docs.godotengine.org/en/stable/classes/class_richtextlabel.html#richtextlabel)|
+|||||
+|Floating History Lines|3|How many recent debug messages to show floating above the target.|[int](https://docs.godotengine.org/en/stable/classes/class_int.html#int)|
+|Floating Offset|(0.0,-50.0)| The coordinate offset for the floating text (Y is usually negative to go UP in 2D, positive in 3D).|[Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html#vector2)|
+|Divided Number|50.0| A mathematical factor that divides the Y floating offset to properly scale the 3D label placement.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
+|||||
+|Draggable History Lines|5|How many recent debug messages to keep in the UI panel.|[int](https://docs.godotengine.org/en/stable/classes/class_int.html#int)|
+|Draggable Offset|(50.0,50.0)|The starting position of the draggable panel on the screen.|[Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html#vector2)|
+|Draggable Minimum Size|(400.0,200.0)|The minimum dimensions the Debug panel will take.|[Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html#vector2)|
+|***Signals***||||
+|Ignored Signals|ready, draw|An array of signals to ignore. You are adding the names of the signals (**case sensitive**)|[Array](https://docs.godotengine.org/en/stable/classes/class_array.html#array)[[StringName]](https://docs.godotengine.org/en/stable/classes/class_stringname.html#stringname)|
+|Only Script Signals|`false`| If *true*, the Debug will track only custom Script Signals, ignoring built-in native node signals.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Only Name|`true`|If *true*, the Debug will only print the signal's name and actively ignore any variable payloads passed through it.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html#)|
+|Signal Debug Color|[`#ff0000`](https://www.colorhexa.com/ff0000) *(RED)*| The color of the debug indicator when printing signal events.|[Color](https://docs.godotengine.org/en/stable/classes/class_color.html#color)|
+|***Properties***||||
+|Properties To Watch|`empty`|An array of **exact** variable string names on the target node you want to track.|[Array](https://docs.godotengine.org/en/stable/classes/class_array.html#array)[[StringName]](https://docs.godotengine.org/en/stable/classes/class_stringname.html#stringname)|
+|Property Debug Color|[`#00ffff`](https://www.colorhexa.com/00ffff) *(CYAN)*|The color of the debug indicator when printing property changes.|[Color](https://docs.godotengine.org/en/stable/classes/class_color.html#color)|
+
+### DebugPalette
+
+A [Resource](https://docs.godotengine.org/en/stable/classes/class_resource.html#resource) that contains 3 colors, one for each tag.
+
+### DisplayMode
+
+It's an [enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string) that conatins:
+
+- **CONSOLE_ONLY**: The Debug can only appear in the label and in the Output.
+- **FLOATING_TEXT**: The Debug will be created above the debugging entity.
+- **DRAGGABLE_UI**: The Debug will be created and able to move.
+
+## Basic Use
+
+Attach the **Debug** node as a child of the entity you want to monitor, or assign the Target manually in the inspector. The component automatically hooks into the target's signal list and prints updates to your selected display mode whenever an unignored signal fires.
+
+To track specific variables, type their ***exact*** string names into the Properties To Watch array. The component will run a continuous check during _process and log a message precisely when a variable's value changes from its previous state.
+
+## Advanced Use
+
+If a signal has more payloads that the engine can handle (5) you can go o the `Debug.gd` and locate the `connect_signals` function.
+
+Inside this function there will be:
+
+```GDScript
+match arg_count:
+				0: callable = func(): _on_any_signal_emitted_with_name(sig_name, [])
+				1: callable = func(a): _on_any_signal_emitted_with_name(sig_name, [a])
+				2: callable = func(a, b): _on_any_signal_emitted_with_name(sig_name, [a, b])
+				3: callable = func(a, b, c): _on_any_signal_emitted_with_name(sig_name, [a, b, c])
+				4: callable = func(a, b, c, d): _on_any_signal_emitted_with_name(sig_name, [a, b, c, d])
+				5: callable = func(a, b, c, d, e): _on_any_signal_emitted_with_name(sig_name, [a, b, c, d, e])
+```
+
+The only think you need to do is just add the number you want to track lets say 8. So the above script will be:
+
+```GDScript
+match arg_count:
+				0: callable = func(): _on_any_signal_emitted_with_name(sig_name, [])
+				1: callable = func(a): _on_any_signal_emitted_with_name(sig_name, [a])
+				2: callable = func(a, b): _on_any_signal_emitted_with_name(sig_name, [a, b])
+				3: callable = func(a, b, c): _on_any_signal_emitted_with_name(sig_name, [a, b, c])
+				4: callable = func(a, b, c, d): _on_any_signal_emitted_with_name(sig_name, [a, b, c, d])
+				5: callable = func(a, b, c, d, e): _on_any_signal_emitted_with_name(sig_name, [a, b, c, d, e])
+				8: callable = func(a, b, c, d, e, f, g, h): _on_any_signal_emitted_with_name(sig_name, [a, b, c, d, e, f, g, h]) # h is the 8th letter of the alphabet
+```
+And thats it!
 
 # Glossary
 

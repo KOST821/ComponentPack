@@ -31,7 +31,7 @@ enum TYPE \
 ## If false, the animation stops and resets after the duration is reached.
 @export var looping: bool = true
 ## How long the animation lasts if looping is false.
-@export var duration: float = 1.0
+@export_range(0.0, 1.0, 0.01, "hide_control", "or_greater", "suffix:s") var duration: float = 1.0
 ## Enables or Disables the Component.
 @export var enable: bool = false:
 	set(value):
@@ -110,11 +110,11 @@ enum TYPE \
 
 @export_group("Rotation Limits")
 ## The maximum [member user.rotation] (in degrees).
-@export var target_tilt_degrees: float = 15.0
+@export_custom(PROPERTY_HINT_NONE, "suffix:°") var target_tilt_degrees: float = 15.0
 ## The speed of the rotation.
 @export var tilt_speed: float = 10.0
 ## How fast is the rotation speed.
-@export var wobble_frequency: float = 0.5
+@export_custom(PROPERTY_HINT_NONE, "suffix:Hz") var wobble_frequency: float = 0.5
 
 var _time_passed: float = 0.0
 var base_scale: Vector2

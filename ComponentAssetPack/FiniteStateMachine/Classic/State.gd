@@ -5,6 +5,7 @@ class_name StateNB
 @warning_ignore("unused_signal")
 signal switch_state(state:StateNB)
 
+## An [Array] that has a title and a state to be connected to. [i]Use it to switch states[/i].
 @export var states_that_can_change:Dictionary[StringName,StateNB]
 
 var user:Node

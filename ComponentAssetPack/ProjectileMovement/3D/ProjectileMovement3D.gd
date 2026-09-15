@@ -1,6 +1,7 @@
 @tool
 @icon("arrow_projectile.svg")
 extends Node
+## Gives movement and gravity to a Projectile in 3D axis.
 class_name ProjectileMovement3D
 
 ## Looking from +Z to -Z

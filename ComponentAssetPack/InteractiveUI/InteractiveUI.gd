@@ -10,22 +10,22 @@ class_name InteractiveUI
 ## The trans type of animation.
 @export var trans_type:Tween.TransitionType
 
-## The max rotation the user can rotate in degrees.
-@export var max_scale:Vector2 = Vector2.ONE * 1.3
 ## The min scale the user can reach.
-@export var min_rotation:float = 17.0:
+@export var max_scale:Vector2 = Vector2.ONE * 1.3
+## The max rotation the user can rotate in degrees.
+@export_custom(PROPERTY_HINT_NONE, "suffix:°") var min_rotation:float = 17.0:
 	set(value):
 		min_rotation = value
 		_rad_rotation_min = deg_to_rad(min_rotation)
 		
 ## The max rotation the user can rotate in degrees.
-@export var max_rotation:float = 21.0:
+@export_custom(PROPERTY_HINT_NONE, "suffix:°") var max_rotation:float = 21.0:
 	set(value):
 		max_rotation = value
 		_rad_rotation_max = deg_to_rad(max_rotation)
 
 ## The time of the animation.
-@export_range(0.0,1.0,0.01,"or_greater") var time:float = 0.29
+@export_range(0.0,1.0,0.01,"or_greater", "suffix:s") var time:float = 0.29
 
 var _starting_rotation:float
 var _starting_scale:Vector2

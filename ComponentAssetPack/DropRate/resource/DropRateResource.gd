@@ -1,6 +1,7 @@
 @tool
 @icon("gem.svg")
 extends Resource
+## A Drop Rate blueprint. You can create from drops off chest to a weighted random number generator.
 class_name RateLine
 
 ## The overall chance (0% to 100%) that this loot pool drops anything at all.

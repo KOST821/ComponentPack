@@ -2,7 +2,8 @@
 extends Area2D
 class_name HitBox2D
 
-@export var damage:float = 10.0
+## The amount of health it reduses.
+@export_custom(PROPERTY_HINT_NONE, "suffix:hp") var damage:float = 10.0
 
 func _ready() -> void:
 	monitorable = false

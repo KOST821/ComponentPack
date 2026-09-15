@@ -5,7 +5,7 @@ class_name InputBuffer
 ## The name of the buffered action. If empty the placeholder will be added.
 @export_placeholder("jump") var action_name: String
 ## The buffer time.
-@export var buffer_time: float = 0.15
+@export_custom(PROPERTY_HINT_NONE, "suffix:s") var buffer_time: float = 0.15
 
 var _buffer_timer: float = 0.0
 

@@ -2,6 +2,7 @@
 extends Node
 class_name Gravity
 
+## How much gravity is connected to your caller.
 @export var gravity:float = 100.0
 
 func get_gravity(delta:float, current_falling_speed:float, max_falling_speed:float = 0.0, descending_gravity_factor:float = 1.0) -> float:

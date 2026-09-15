@@ -11,7 +11,7 @@ signal transition_finished
 @export var target:Control
 
 ## The total duration of the transition animation in seconds.
-@export var transition_time: float = 1.5
+@export_custom(PROPERTY_HINT_NONE, "suffix:s") var transition_time: float = 1.5
 
 ## The ease type of animation.
 @export var ease_type: Tween.EaseType = Tween.EASE_IN

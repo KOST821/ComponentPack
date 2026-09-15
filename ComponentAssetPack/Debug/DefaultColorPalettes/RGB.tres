@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DebugPalette" format=3 uid="uid://bevww3qdvdgxp"]
+
+[ext_resource type="Script" uid="uid://ler3lw408s4r" path="res://ComponentAssetPack/Debug/DebugPalette.gd" id="1_qt1p1"]
+
+[resource]
+script = ExtResource("1_qt1p1")
+time_debug_color = Color(1, 0, 0, 1)
+signal_debug_color = Color(0, 1, 0, 1)
+property_debug_color = Color(0, 0, 1, 1)
+metadata/_custom_type_script = "uid://ler3lw408s4r"

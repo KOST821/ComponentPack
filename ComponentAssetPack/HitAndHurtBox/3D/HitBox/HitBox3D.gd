@@ -2,8 +2,8 @@
 extends Area3D
 class_name HitBox3D
 
-## Who is using the component.
-@export var damage:float = 10.0
+## The amount of health it reduses.
+@export_custom(PROPERTY_HINT_NONE, "suffix:hp") var damage:float = 10.0
 
 func _ready() -> void:
 	monitorable = false

@@ -1,6 +1,7 @@
 @tool
 @icon("arrow_projectile.svg")
 extends Node
+## Gives movement and gravity to a Projectile in 2D axis.
 class_name ProjectileMovement2D
 
 enum STARTING_POS \
@@ -21,6 +22,7 @@ enum STARTING_POS \
 		user = value
 		update_configuration_warnings()
 
+## The [Node2D] that holds you texture.
 @export var sprite:Node2D:
 	set(value):
 		sprite = value

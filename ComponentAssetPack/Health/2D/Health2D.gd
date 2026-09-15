@@ -17,9 +17,9 @@ signal health_changed(current:float,max:float)
 @export var user:Node
 
 ## Max Health.
-@export var max_health:float
+@export_custom(PROPERTY_HINT_NONE, "suffix:hp") var max_health:float = 100.0
 ## The percentage of max_health the component starts with. 
-@export_range(0.0,100.0) var starting_health_per:float = 100.0
+@export_range(0.0, 100.0, 0.1, "prefer_slider", "suffix:%") var starting_health_per:float = 100.0
 ## What happens after death.[br]
 @export var post_death_action:PostDeath = PostDeath.DESTROY_NODE
 ## What to drop when dead, if null it isn't dropping anything
@@ -28,7 +28,7 @@ signal health_changed(current:float,max:float)
 var health:float = max_health
 
 func _ready() -> void:
-	if user == null or user is not Node2D or user is not Control:
+	if user == null or not (user is not Node2D or user is not Control):
 		user = get_parent()
 		if user is not Node2D or user is not Control:
 			user = null
