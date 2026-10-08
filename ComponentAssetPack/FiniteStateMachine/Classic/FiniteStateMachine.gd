@@ -1,6 +1,6 @@
 @icon("cog.svg")
 extends Node
-class_name FiniteStateMachine
+class_name FiniteStateMachineNB
 
 ## Who is using the component.
 @export var user:Node

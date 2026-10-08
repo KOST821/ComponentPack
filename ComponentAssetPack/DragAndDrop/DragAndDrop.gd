@@ -1,7 +1,7 @@
 @icon("chess_pawn.svg")
 extends Node
 ## Adds drag-and-drop functionality to a 2D node. 
-class_name DragDropComponent2D
+class_name DragAndDrop
 
 ## Emitted when drag is starting.
 signal drag_started

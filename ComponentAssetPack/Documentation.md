@@ -44,6 +44,8 @@
 	* ![OneTimespr_icon](OneTimeAnimatedSprite/2D/OneTimeAnimationIcon.svg) ![OneTimesanim_icon](OneTimeAnimatedSprite/3D/OneTimeAnimationIcon.svg) [OneTimeAnimatedSprite](#onetimeanimatedsprite--)
 	* ![OneTimespr_icon](OneTimeAnimationPlayer/book_open.svg)  [OneTimeAnimationPlayer](#onetimeanimationplayer-)
 
+- ![Debug](Debug/bug.svg) [Debug](#debug-)
+
 - [Glossary](#glossary)
 
 <br> <br>
@@ -1216,6 +1218,62 @@ match arg_count:
 				8: callable = func(a, b, c, d, e, f, g, h): _on_any_signal_emitted_with_name(sig_name, [a, b, c, d, e, f, g, h]) # h is the 8th letter of the alphabet
 ```
 And thats it!
+
+# ConfigSaveSystem <img width="24" height="24" alt="config_save_system_icon" src="SaveSystem/file_terminal.svg"/>
+
+This component provides a robust, memory-cached configuration and save system. It holds all data in memory and writes to the disk only when explicitly told to, making it highly performant for frequent variable updates or state tracking.
+
+## Setup Properties
+
+|Name|Default|Description|Type|
+|:---|:---:|:---:|---:|
+|Path|empty|The base path where the file will be saved *(e.g., user://settings)*. Do **not** include the file extension.|[String](https://docs.godotengine.org/en/stable/classes/class_string.html)|
+|File Type|`.cfg`|The format of the **configuration file**. Can be [`.cfg`](https://en.wikipedia.org/wiki/Configuration_file) or [`.ini`](https://en.wikipedia.org/wiki/INI_file).|[enum (String)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string)|
+|Auto Load On Ready|`true`|If **enabled**, the system automatically loads the save file from the disk into memory when the node enters the scene tree.|[bool](https://docs.godotengine.org/en/latest/classes/class_bool.html)|
+
+## Basic Use
+
+The system separates memory operations from disk operations to prevent *input/output* bottlenecks. You interact with the memory using `set_data` and `get_data`. When you are ready to permanently save the changes to the user's device, you must call `commit_save()`.
+
+```GDScript
+@export var save_system: ConfigSaveSystem # The instance of the component.
+
+func save_player_data() -> void:
+	# Write values to the system's memory
+	save_system.set_data("Player", "name", "Hero")
+	save_system.set_data("Player", "level", 15)
+	
+	# Commit the changes to the hard drive
+	save_system.commit_save()
+
+func load_player_data() -> void:
+	# Reads from memory (already loaded if auto_load_on_ready is true)
+	# The 3rd parameter is a failsafe default if the key doesn't exist yet.
+	var player_name = save_system.get_data("Player", "name", "Unknown")
+	var player_level = save_system.get_data("Player", "level", 1)
+```
+
+## Advanced Use
+
+### Memory and Data Management
+
+The component comes with several built-in query and management functions that allow you to safely manipulate the data:
+
+- ***Checking Data***: Use `has_section(section)` or `has_section_key(section, key)` to silently check if specific data exists in memory without throwing errors.
+
+- ***Erasing Data***: Use `erase_section(section)` or `erase_section_key(section, key)` to remove specific entries from memory.
+
+- ***Iteration***: Use `get_all_sections()` and `get_section_keys(section)` to dynamically loop through saved data. *This is especially useful for building UI menus that need to list all saved games or custom keybinds dynamically*.
+
+### File Deletion
+
+If a player clicks "Reset to Defaults" or "Delete Save Data", you can use the system's built-in wipe methods.
+
+To clear just the current session memory:
+
+```GDScript
+save_system.clear_all_data()
+```
 
 # Glossary
 

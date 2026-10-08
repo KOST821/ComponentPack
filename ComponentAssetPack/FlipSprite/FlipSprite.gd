@@ -59,4 +59,3 @@ func flip_sprite_towards(other_position: Vector2) -> void:
 			sprite.flip_v = sign(new_dir.y) == -1
 		else:
 			sprite.flip_v = sign(new_dir.y) == 1
-		
