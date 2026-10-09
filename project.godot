@@ -12,25 +12,16 @@ config_version=5
 
 config/name="component_asset_pack"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
-
-[autoload]
-
-DropManager="*uid://djegfmvehwytp"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
-[editor_plugins]
-
-enabled=PackedStringArray()
-
 [file_customization]
 
 folder_colors={
-"res://ComponentAssetPack/Examples/": "red"
+"res://addons/ComponentAssetPack/Examples/": "red"
 }
 
 [global_group]

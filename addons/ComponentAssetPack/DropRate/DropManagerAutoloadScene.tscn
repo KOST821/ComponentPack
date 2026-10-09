@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://djegfmvehwytp"]
+
+[ext_resource type="Script" uid="uid://dh0qa1lg6hpya" path="res://addons/ComponentAssetPack/DropRate/DropManager.gd" id="1_2oad5"]
+
+[node name="DropManager" type="Node" unique_id=169420244]
+script = ExtResource("1_2oad5")
