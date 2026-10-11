@@ -652,15 +652,15 @@ func _transition()->void:
 
 If you have a tree like this:
 
-![player_tree_icon](Examples/tree_NB.png)
+![player_tree_icon](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/tree_NB.png)
 
 Let's say we keep track of Player's States and we want to be Idle first then, we setup the *FiniteStateMachineNB* like this:
 
-![cog_icon](Examples/manager_NB.png)
+![cog_icon](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/manager_NB.png)
 
 Now to the "Idle" State we *extend the [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script)* and we want to be able to run if we are in Idle state, so we connect the move to the [Dictionary](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#dictionary).
 
-![state_icon](Examples/State_NB.png)
+![state_icon](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/State_NB.png)
 
 So now is time to write an *Idle.gd*!
 
@@ -741,15 +741,15 @@ func unhandled_input(_event:InputEvent)->void:
 
 If you have a tree like this:
 
-![player_tree_icon](Examples/tree_UB.png)
+![player_tree_icon](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/tree_UB.png)
 
 Let's say we keep track of Box's States then, we setup the *FiniteStateMachineUB* like this:
 
-![bot_icon](Examples/machine_UB.png)
+![bot_icon](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/machine_UB.png)
 
 Now to the "Box" we *create a [Script](https://docs.godotengine.org/en/stable/classes/class_script.html#script)*.
 
-![create_script_icon](Examples/create_sqp_UB.png)
+![create_script_icon](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/create_sqp_UB.png)
 
 ***Let's create a small machine!***
 
@@ -1065,7 +1065,7 @@ Rotate Based On Velocity|`false`|If **enabled**, the projectile will tilt to con
 Starting Sprite Position|RIGHT|The direction the raw texture faces. Used to offset the child sprite correctly.|[enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string)|
 Lifetime|0.0|Time in seconds before the projectile calls [`queue_free()`](https://docs.godotengine.org/en/stable/classes/class_node.html#class-node-method-queue-free). If set to 0.0, it lasts forever.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
 
-![ProjectileMovement2D_gif](https://raw.githubusercontent.com/KOST821/component_asset_pack/main/addons/ComponentAssetPack/Examples/ProjectileMovement/gif.gif)
+![ProjectileMovement2D_gif](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/ProjectileMovement/2Dgif.gif)
 
 ### Basic Use
 
@@ -1105,7 +1105,7 @@ Rotate Based On Velocity|`false`|If **enabled**, the projectile will continuousl
 Starting Sprite Position|RIGHT|The direction your mesh faces.|[enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string)|
 Lifetime|0.0|Time in seconds before the projectile calls [`queue_free()`](https://docs.godotengine.org/en/stable/classes/class_node.html#class-node-method-queue-free). If set to 0.0, it lasts forever.|[float](https://docs.godotengine.org/en/stable/classes/class_float.html#float)|
 
-![ProjectileMovement3D_gif](https://raw.githubusercontent.com/KOST821/component_asset_pack/main/addons/ComponentAssetPack/Examples/ProjectileMovement/gif_3dpr.gif)
+![ProjectileMovement3D_gif](https://raw.githubusercontent.com/KOST821/ComponentPack/main/addons/ComponentPack/Examples/ProjectileMovement/3Dgif.gif)
 
 ### Basic Use
 
