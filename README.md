@@ -15,4 +15,4 @@ Welcome to the **Component Asset Pack**! This is a collection of ready-to-use, h
 
 ## 📖 Documentation
 Want to know the exact setup and parameters for every script? 
-[Read the full documentation here](ComponentAssetPack/Documentation.md).
+[Read the full documentation here](addons/ComponentAssetPack/DOCUMENTATION.md).

@@ -46,6 +46,8 @@
 
 - ![Debug](Debug/bug.svg) [Debug](#debug-)
 
+- ![ConfigSaveSystem_icon](SaveSystem/file_terminal.svg) [ConfigSaveSystem](#configsavesystem-)
+
 - [Glossary](#glossary)
 
 <br> <br>
