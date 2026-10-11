@@ -19,12 +19,13 @@ DropManager="*uid://djegfmvehwytp"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ComponentAssetPack/plugin.cfg")
+enabled=PackedStringArray("res://addons/ComponentPack/plugin.cfg")
 
 [file_customization]
 
