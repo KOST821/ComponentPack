@@ -1,2 +1,17 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+*.gd text eol=lf
+*.tscn text eol=lf
+*.tres text eol=lf
+*.godot text eol=lf
+
+# Exclude repository files and configs from release zips
+/project.godot export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+icon.png export-ignore
+/export_presets.cfg export-ignore
+
+# Do not package these folders in the exported project.
+/.github export-ignore
+/addons/ComponentPack/Examples export-ignore

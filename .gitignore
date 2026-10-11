@@ -15,9 +15,3 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
-
-# Ignore Folders
-/addons/ComponentPack/Examples/
-
-# Ignore Files
-icon.png
