@@ -1,6 +1,6 @@
-# Component Asset Pack
+# Component Pack
 
-Welcome to the **Component Asset Pack**! This is a collection of ready-to-use, highly customizable component scripts and shaders to drop directly into your Godot 4 project.
+Welcome to the **Component Pack**! This is a collection of ready-to-use, highly customizable component scripts and shaders to drop directly into your Godot 4 project.
 
 ## 🚀 Features at a Glance
 - **Health & Combat:** Includes separated 2D and 3D modules for Health. It also contains 2D and 3D HitBox and HurtBox components.
@@ -11,8 +11,8 @@ Welcome to the **Component Asset Pack**! This is a collection of ready-to-use, h
 ## 📦 Installation
 1. Download the latest release from the Releases tab.
 2. Extract the ZIP file.
-3. Drag the `ComponentAssetPack` folder into your Godot project's `res://` directory.
+3. Drag the `ComponentPack` folder into your Godot project's `res://` directory.
 
 ## 📖 Documentation
 Want to know the exact setup and parameters for every script? 
-[Read the full documentation here](addons/ComponentAssetPack/DOCUMENTATION.md).
+[Read the full documentation here](addons/ComponentPack/DOCUMENTATION.md).

@@ -17,7 +17,7 @@ data_*/
 mono_crash.*.json
 
 # Ignore Folders
-/addons/ComponentAssetPack/Examples/
+/addons/ComponentPack/Examples/
 
 # Ignore Files
 icon.png

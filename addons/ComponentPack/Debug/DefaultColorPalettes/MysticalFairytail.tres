@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DebugPalette" format=3 uid="uid://bd1sjkq8nijjs"]
+
+[ext_resource type="Script" uid="uid://ler3lw408s4r" path="res://addons/ComponentPack/Debug/DebugPalette.gd" id="1_12c6r"]
+
+[resource]
+script = ExtResource("1_12c6r")
+time_debug_color = Color(0.11764706, 0.11764706, 0.14117648, 1)
+signal_debug_color = Color(0.57254905, 0.078431375, 0.047058824, 1)
+property_debug_color = Color(1, 0.972549, 0.9411765, 1)
+metadata/_custom_type_script = "uid://ler3lw408s4r"
