@@ -1182,7 +1182,7 @@ A [Resource](https://docs.godotengine.org/en/stable/classes/class_resource.html#
 
 ### DisplayMode
 
-It's an [enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string) that conatins:
+It's an [enum (int)](https://docs.godotengine.org/en/stable/tutorials/best_practices/data_preferences.html#enumerations-int-vs-string) that contains:
 
 - **CONSOLE_ONLY**: The Debug can only appear in the label and in the Output.
 - **FLOATING_TEXT**: The Debug will be created above the debugging entity.
@@ -1196,7 +1196,7 @@ To track specific variables, type their ***exact*** string names into the Proper
 
 ## Advanced Use
 
-If a signal has more payloads that the engine can handle (5) you can go o the `Debug.gd` and locate the `connect_signals` function.
+If a signal has more arguments than the default limit (5), you can open `Debug.gd` and locate the `connect_signals` function.
 
 Inside this function there will be:
 

@@ -24,8 +24,7 @@ enum DisplayMode\
 @export_placeholder("[DEBUG]") var debug_indicator: String = "[DEBUG]"
 ## If [b]true[/b], the Debug will print the time when it happened.
 @export var timestamped: bool = true
-## Drop a ColorPalette resource here to auto-theme the debug text, the Colors outside of the Palette are [b][color=RED]overitten[/color][/b]. 
-## Element 0 = Time, Element 1 = Signal, Element 2 = Property.
+## Drop a ColorPalette resource here to auto-theme the debug text, the Colors outside of the Palette are [b][color=RED]overwritten[/color][/b].
 @export var theme_palette: DebugPalette
 
 ## The color of the [member Debug.timestamped].
@@ -46,7 +45,7 @@ var _time_debug_color: String = "ff69b4"
 
 @export_group("In-Game HUD (Floating)")
 ## How many recent debug messages to show floating above the node.
-@export_custom(PROPERTY_HINT_NONE, "suffix:lines") var floating_history_lines: int = 3
+@export_range(1, 10, 1, "or_greater", "hide_control", "suffix:lines") var floating_history_lines: int = 3
 ## Offset for the floating text (Y is usually negative to go UP in 2D, positive in 3D).
 @export var floating_offset: Vector2 = Vector2(0, -50)
 ## A factor that will divide the Y floating offset when the label size is created.
@@ -57,7 +56,7 @@ var _floating_history: Array[String] = []
 
 @export_group("Draggable UI")
 ## How many recent debug messages to keep in the panel.
-@export_custom(PROPERTY_HINT_NONE, "suffix:lines") var draggable_history_lines: int = 5
+@export_range(1, 10, 1, "or_greater", "hide_control", "suffix:lines") var draggable_history_lines: int = 5
 ## Starting position of the draggable panel on your screen.
 @export var draggable_offset: Vector2 = Vector2(50, 50)
 ## The least size your Debug can take.
