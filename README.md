@@ -36,4 +36,4 @@ Contributions are welcome! Whether you are fixing a bug or adding a brand-new co
 
 ## 📄 License
 
-This project is licensed under the terms of the [MIT License](LICENSE).
+This project is licensed under the terms of the [MIT License](addons/ComponentPack/LICENSE).
