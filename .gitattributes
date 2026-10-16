@@ -11,6 +11,8 @@
 /.gitignore export-ignore
 icon.png export-ignore
 /export_presets.cfg export-ignore
+README.md export-ignore
+CONTRIBUTING.md export-ignore
 
 # Do not package these folders in the exported project.
 /.github export-ignore
