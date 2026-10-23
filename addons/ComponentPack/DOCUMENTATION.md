@@ -1006,7 +1006,7 @@ The Drops [dictionary]((https://docs.godotengine.org/en/stable/classes/class_dic
 Because loot tables need to be accessible from anywhere and cached only once, the **DropManager** must be set up as a *Global Autoload (Singleton) Scene*.
 
 > [!NOTE]
-> If you use the *Component Asset Pack plugin* you may skip this step if you activate it:
+> If you use the *Component Asset Pack plugin* you may skip this step if you activate it.
 
 1. Create a new Scene with a basic [Node](https://docs.godotengine.org/en/stable/classes/class_node.html#node) as the root. Name it **DropManager**.
 

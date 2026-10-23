@@ -38,6 +38,7 @@ func _ready() -> void:
 		push_warning('You forgot to place the "user" to the health component (',self,'). Automatically added the parent (',user,'), KOSSAINIS')
 	
 	if starting_health_per == 100.0:
+		health = max_health
 		return
 	health = max_health * (starting_health_per / 100.0)
 

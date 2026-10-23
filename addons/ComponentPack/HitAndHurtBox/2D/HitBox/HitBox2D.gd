@@ -14,4 +14,4 @@ func _on_damage_dealt(area: Area2D) -> void:
 	if area is not HurtBox2D or not area.has_method('take_damage'):
 		return
 	
-	area.take_damage(damage)
+	area.take_damage(damage, area)

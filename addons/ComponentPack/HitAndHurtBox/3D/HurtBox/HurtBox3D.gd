@@ -2,7 +2,7 @@
 extends Area3D
 class_name HurtBox3D
 
-signal damage_taken(damage:float)
+signal damage_taken(damage:float, area:Area3D)
 
 ## Who is traking the health.
 @export var health_counter:Node
@@ -12,15 +12,14 @@ signal damage_taken(damage:float)
 func _ready() -> void:
 	if method == "":
 		method = "take_damage"
-		push_warning('You forgot to place the "method" to the HurtBox3D (',self,'). Automatically added the placeholder (',method,'), KOSSAINIS')
+		push_warning('You forgot to place the "method" to the HurtBox3D (',self,'). Automatically added the placeholder (',method,')')
 	
 	monitoring = false
 
-func take_damage(damage:float)->void:
-	if !health_counter:
-		push_warning('You forgot to place the "health_counter" to the HurtBox3D (',self,'), KOSSAINIS')
-		return
+func take_damage(damage:float, area:Area3D)->void:
+	if not health_counter:
+		push_warning('You forgot to place the "health_counter" to the HurtBox3D (',self,')')
+	else:
+		health_counter.call_deferred(method, damage)
 	
-	damage_taken.emit(damage)
-	
-	health_counter.call_deferred(method, damage)
+	damage_taken.emit(damage, area)
